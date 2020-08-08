@@ -10,7 +10,41 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TagRepository::class)
- * @ApiResource()
+ * @ApiResource(collectionOperations={
+ *     "get_tags": {
+ *             "method": "GET",
+ *             "path": "/admin/tags",
+ *              "normalization_context"={"groups":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         },"post_tags": {
+ *             "method": "POST",
+ *             "path": "/admin/tags",
+ *              "normalization_context"={"groups":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN')or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *     },itemOperations={
+ *     "get_tags_id": {
+ *             "method": "GET",
+ *             "path": "/admin/tags/{id}",
+ *              "normalization_context"={"groups":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *     ,"put_tags_id": {
+ *             "method": "PUT",
+ *             "path": "/admin/tags/{id}",
+ *              "normalization_context"={"groups":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *
+ *     })
  */
 class Tag
 {

@@ -10,7 +10,49 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=GroupeTagRepository::class)
- * @ApiResource()
+ * @ApiResource(itemOperations={
+*             "get_grptags_id": {
+ *             "method": "GET",
+ *             "path": "/admin/grptags/{id}",
+ *              "normalization_context"={"groups":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *     ,"put_grptags_id": {
+ *             "method": "PUT",
+ *             "path": "/admin/grptags/{id}",
+ *              "normalization_context"={"groups":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         },
+ *     "delete_grptags_id": {
+ *             "method": "DELETE",
+ *             "path": "/admin/grptags/{id}",
+ *              "normalization_context"={"groups":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *     },
+ *     collectionOperations={
+*       "get_grpstags": {
+ *             "method": "GET",
+ *             "path": "/admin/grptags",
+ *              "normalization_context"={"groups":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         },"post_grpstags": {
+ *             "method": "POST",
+ *             "path": "/admin/grptags",
+ *              "normalization_context"={"groups":"formateur:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN')or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *     })
  */
 class GroupeTag
 {
