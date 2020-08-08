@@ -3,16 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ProfilSortiRepository;
+use App\Repository\NiveauRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProfilSortiRepository::class)
+ * @ORM\Entity(repositoryClass=NiveauRepository::class)
  * @ApiResource()
  */
-class ProfilSorti
+class Niveau
 {
     /**
      * @ORM\Id()
@@ -27,13 +27,13 @@ class ProfilSorti
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="profilSortis")
+     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="niveaux")
      */
-    private $users;
+    private $competences;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->competences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,26 +54,26 @@ class ProfilSorti
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|Competence[]
      */
-    public function getUsers(): Collection
+    public function getCompetences(): Collection
     {
-        return $this->users;
+        return $this->competences;
     }
 
-    public function addUser(User $user): self
+    public function addCompetence(Competence $competence): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
+        if (!$this->competences->contains($competence)) {
+            $this->competences[] = $competence;
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeCompetence(Competence $competence): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
+        if ($this->competences->contains($competence)) {
+            $this->competences->removeElement($competence);
         }
 
         return $this;

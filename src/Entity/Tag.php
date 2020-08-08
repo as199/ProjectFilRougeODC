@@ -3,16 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ProfilSortiRepository;
+use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProfilSortiRepository::class)
+ * @ORM\Entity(repositoryClass=TagRepository::class)
  * @ApiResource()
  */
-class ProfilSorti
+class Tag
 {
     /**
      * @ORM\Id()
@@ -27,13 +27,13 @@ class ProfilSorti
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="profilSortis")
+     * @ORM\ManyToMany(targetEntity=GroupeTag::class, inversedBy="tags")
      */
-    private $users;
+    private $groupeTags;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->groupeTags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,26 +54,26 @@ class ProfilSorti
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|GroupeTag[]
      */
-    public function getUsers(): Collection
+    public function getGroupeTags(): Collection
     {
-        return $this->users;
+        return $this->groupeTags;
     }
 
-    public function addUser(User $user): self
+    public function addGroupeTag(GroupeTag $groupeTag): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
+        if (!$this->groupeTags->contains($groupeTag)) {
+            $this->groupeTags[] = $groupeTag;
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeGroupeTag(GroupeTag $groupeTag): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
+        if ($this->groupeTags->contains($groupeTag)) {
+            $this->groupeTags->removeElement($groupeTag);
         }
 
         return $this;
