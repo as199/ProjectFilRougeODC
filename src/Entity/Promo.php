@@ -10,7 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=PromoRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ 
+ * )
  */
 class Promo
 {
