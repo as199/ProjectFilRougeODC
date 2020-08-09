@@ -2,15 +2,63 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GroupeCompetenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=GroupeCompetenceRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ * itemOperations={
+ * "get_groupe_competence_id":{
+ *   "method": "GET",
+ *   "path": "/admin/grpecompetences/{id}",
+ *   "normalization_context"={"groups":"gprecompetence:read"},
+ *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * },
+ * "update_competence_id":{
+ *   "method": "PUT",
+ *   "path": "/admin/grpecompetences/{id}",
+ *   "normalization_context"={"groups":"gprecompetence:read"},
+ *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * },
+ * "get_competence_id":{
+ *   "method": "GET",
+ *   "path": "/admin/grpecompetences/{id}/competences",
+ *   "normalization_context"={"groups":"gc:read"},
+ *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ * }
+ * },
+ *  collectionOperations={
+ *   "get_groupe_competences": {
+ *   "method": "GET",
+ *   "path": "/admin/grpecompetences",
+ *   "normalization_context"={"groups":"gprecompetence:read"},
+ *   "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *  },
+ * "get_lister_competence_dans_groupes": {
+ *    "method": "GET",
+ *    "path": "/admin/grpecompetences/competences",
+ *    "normalization_context"={"groups":"gc:read"},
+ *    "access_control"="(is_granted('ROLE_ADMIN'))",
+ *    "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *   },
+ * "add_groupe_competence": {
+ *    "method": "POST",
+ *    "path": "/admin/grpecompetences",
+ *    "normalization_context"={"groups":"gprecompetence:read"},
+ *    "access_control"="(is_granted('ROLE_ADMIN'))",
+ *    "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *   }
+ * }
+ * )
  */
 class GroupeCompetence
 {
@@ -18,6 +66,7 @@ class GroupeCompetence
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"gprecompetence:read"})
      */
     private $id;
 
@@ -28,11 +77,13 @@ class GroupeCompetence
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="groupeCompetences")
+     * @Groups({"gc:read"})
      */
     private $competences;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"gprecompetence:read"})
      */
     private $libelle;
 
