@@ -2,14 +2,42 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\GroupeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GroupeRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *  collectionOperations={
+ *      "get":{
+ *          "path":"admin/groupes",
+ *          "normalization_context"={"groups":"admin_groupe:read"},
+ *      },
+ *      "get1":{
+ *          "method":"get",
+ *          "path":"admin/groupes/apprenants",
+ *          "normalization_context"={"groups":"admin_groupe_apprenant:read"},
+ *      },
+ *      "post":{
+ *          "path":"admin/groupes",
+ *      }
+ *  },
+ *  itemOperations={
+ *      "get":{
+ *          "path":"admin/groupes/{id}",
+ *          "normalization_context"={"groups":"admin_groupe:read"},
+ *      },
+ *      "put":{
+ *          "path":"admin/groupes/{id}",
+ *      },
+ *      "delete":{
+ *          "path":"admin/groupes/{id}",
+ *      }
+ *  }
+ * )
  * @ORM\Entity(repositoryClass=GroupeRepository::class)
  */
 class Groupe
@@ -18,26 +46,31 @@ class Groupe
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *  @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read"})
      */
     private $nomGroupe;
 
     /**
      * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes")
+     * @Groups({"admin_groupe:read","admin_groupe_apprenant:read"})
      */
     private $apprenants;
 
     /**
      * @ORM\ManyToMany(targetEntity=Formateur::class, inversedBy="groupes")
+     * @Groups({"admin_groupe:read"})
      */
     private $formateurs;
 
     /**
      * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="groupes",cascade={"persist"})
+     * @Groups({"admin_groupe:read"})
      */
     private $promos;
 
