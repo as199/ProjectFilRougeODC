@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\PromoRepository;
+use App\Repository\GroupeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +16,7 @@ class ApiController extends AbstractController
     /**
      * @Route("api/admin/promo/principal", name="admin_promo_principal")
      */
-    public function adminpromoprincipal(PromoRepository $repo, SerializerInterface $serializer)
+    public function admingroupeprincipal(GroupeRepository $repo, SerializerInterface $serializer)
     {
         return $this->json($repo->findByStatutGroupe("principal"), Response::HTTP_OK, [], ['groups' => 'admin_promo_principal:read']);
         //$this->bookPublishingHandler->handle($data);
@@ -23,10 +24,11 @@ class ApiController extends AbstractController
         //return $data;
     }
 
+
     /**
      * @Route("api/admin/promo/{id}/principal", name="admin_promo_principal_id")
      */
-    public function adminpromoprincipalid(PromoRepository $repo, SerializerInterface $serializer, Request $request)
+    public function admingroupeprincipalid(GroupeRepository $repo, SerializerInterface $serializer, Request $request)
     {
         return $this->json($repo->findByStatutGroupeid("principal", (int)$request->get("id")), Response::HTTP_OK, [], ['groups' => 'admin_promo_principal:read']);
         //$this->bookPublishingHandler->handle($data);

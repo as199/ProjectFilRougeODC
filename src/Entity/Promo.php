@@ -17,11 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "path":"admin/promo",
  *      "normalization_context"={"groups":"admin_promo:read"},
  *  },
- *  "admin_promo_principal":{
- *      "path":"admin/promo/principal",
- *      "normalization_context"={"groups":"admin_promo_principal:read"},
- *      
- *  },
+ *  
  *  "post":{
  *      "path":"admin/promo",
  *  }
@@ -52,11 +48,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "path":"admin/promo/{id}/referentiels",
  *      "normalization_context"={"groups":"admin_promo_referenciel:read"},
  *  },
- *  "admin_promo_principal_id":{
- *      "path":"admin/promo/{id}/principal",
- *      "normalization_context"={"groups":"admin_promo_principal:read"},
- *      
- *  },
+ *  
  *  "admin_promo_principal_apprenant":{
  *      "path":"api/admin/promo/{id}/groupes/{id}/apprenants",
  *      "normalization_context"={"groups":"admin_promo_principal:read"},

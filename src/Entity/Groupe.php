@@ -17,6 +17,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "normalization_context"={"groups":"admin_groupe:read"},
  *      
  *      },
+ *      "admin_promo_principal":{
+ *      "path":"admin/promo/principal",
+ *      "normalization_context"={"groups":"admin_promo_principal:read"},
+ *      
+ *      },
  *      "post":{
  *          "path":"admin/groupes",
  *      }
@@ -25,6 +30,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "get":{
  *          "path":"admin/groupes/{id}",
  *          "normalization_context"={"groups":"admin_groupe:read"},
+ *      },
+ *      "admin_promo_principal_id":{
+ *      "path":"admin/promo/{id}/principal",
+ *      "normalization_context"={"groups":"admin_promo_principal:read"},
+ *      
  *      },
  *      "put":{
  *          "path":"admin/groupes/{id}",
