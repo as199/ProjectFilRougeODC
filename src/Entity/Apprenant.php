@@ -12,7 +12,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ApprenantRepository::class)
- * @ApiResource
+ * @ApiResource(itemOperations={"PUT","DELETE","GET"},
+ * collectionOperations={"GET"={"path":"/admin/groups/apprenant",}
+ * ,"POST"}
+ * )
  */
 class Apprenant extends User
 {

@@ -15,11 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "get":{
  *          "path":"admin/groupes",
  *          "normalization_context"={"groups":"admin_groupe:read"},
- *      },
- *      "get1":{
- *          "method":"get",
- *          "path":"admin/groupes/apprenants",
- *          "normalization_context"={"groups":"admin_groupe_apprenant:read"},
+ *      
  *      },
  *      "post":{
  *          "path":"admin/groupes",

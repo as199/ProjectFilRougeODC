@@ -49,8 +49,8 @@ class PromoRepository extends ServiceEntityRepository
     */
     public function findByStatutGroupe($value)
     {
-        return $this->createQueryBuilder('u')
-            ->innerJoin('u.groupes', 'g')
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.groupes', 'g')
             ->andWhere('g.statut = :val')
             ->setParameter('val', $value)
             
@@ -60,8 +60,8 @@ class PromoRepository extends ServiceEntityRepository
 
     public function findByStatutGroupeid($value, $id)
     {
-        return $this->createQueryBuilder('u')
-            ->innerJoin('u.groupes', 'g')
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.groupes', 'g')
             ->andWhere('g.statut = :val')
             ->setParameter('val', $value)
             ->andWhere('g.id = :id')
@@ -73,10 +73,10 @@ class PromoRepository extends ServiceEntityRepository
 
     public function findByStatutGroupeidapprenant($id1, $id2)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.id = :id1')
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :id1')
             ->setParameter('id1', $id1)
-            ->innerJoin('u.groupes', 'g')
+            ->innerJoin('p.groupes', 'g')
             ->andWhere('g.id = :id2')
             ->setParameter('id2', $id2)
             
