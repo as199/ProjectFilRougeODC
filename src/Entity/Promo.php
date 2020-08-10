@@ -17,6 +17,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "path":"admin/promo",
  *      "normalization_context"={"groups":"admin_promo:read"},
  *  },
+ *  "admin_promo_principal":{
+ *      "path":"admin/promo/principal",
+ *      "normalization_context"={"groups":"admin_promo_principal:read"},
+ *      
+ *  },
  *  "post":{
  *      "path":"admin/promo",
  *  }
@@ -47,6 +52,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "path":"admin/promo/{id}/referentiels",
  *      "normalization_context"={"groups":"admin_promo_referenciel:read"},
  *  },
+ *  "admin_promo_principal_id":{
+ *      "path":"admin/promo/{id}/principal",
+ *      "normalization_context"={"groups":"admin_promo_principal:read"},
+ *      
+ *  },
+ *  "admin_promo_principal_apprenant":{
+ *      "path":"api/admin/promo/{id}/groupes/{id}/apprenants",
+ *      "normalization_context"={"groups":"admin_promo_principal:read"},
+ *      
+ *  },
  *  "put":{
  *      "path":"admin/promo/{id}",
  *  }
@@ -60,25 +75,25 @@ class Promo
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read"})
+     * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read"})
+     *  @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
      */
     private $nomPromotion;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read"})
+     * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     *  @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read"})
+     *  @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
      */
     private $dateFin;
 
@@ -90,7 +105,7 @@ class Promo
 
     /**
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="promos",cascade={"persist"})
-     * @Groups({"admin_promo:read","admin_promo_groupe:read","admin_promo_apprenant:read"})
+     * @Groups({"admin_promo:read","admin_promo_groupe:read","admin_promo_apprenant:read","admin_promo_principal:read"})
      */
     private $groupes;
 

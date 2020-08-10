@@ -23,7 +23,7 @@ class Apprenant extends User
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"admin_groupe_apprenant:read","admin_promo_apprenant:read"})
+     * @Groups({"admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
      */
     private $statut;
 

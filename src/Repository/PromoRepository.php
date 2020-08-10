@@ -47,4 +47,40 @@ class PromoRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findByStatutGroupe($value)
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.groupes', 'g')
+            ->andWhere('g.statut = :val')
+            ->setParameter('val', $value)
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByStatutGroupeid($value, $id)
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.groupes', 'g')
+            ->andWhere('g.statut = :val')
+            ->setParameter('val', $value)
+            ->andWhere('g.id = :id')
+            ->setParameter('id', $id)
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByStatutGroupeidapprenant($id1, $id2)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :id1')
+            ->setParameter('id1', $id1)
+            ->innerJoin('u.groupes', 'g')
+            ->andWhere('g.id = :id2')
+            ->setParameter('id2', $id2)
+            
+            ->getQuery()
+            ->getResult();
+    }
 }
