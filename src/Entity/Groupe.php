@@ -46,19 +46,19 @@ class Groupe
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *  @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read"})
+     *  @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read"})
+     *  @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read"})
      */
     private $nomGroupe;
 
     /**
      * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes")
-     * @Groups({"admin_groupe:read","admin_groupe_apprenant:read"})
+     * @Groups({"admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read"})
      */
     private $apprenants;
 
@@ -73,6 +73,12 @@ class Groupe
      * @Groups({"admin_groupe:read"})
      */
     private $promos;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read"})
+     */
+    private $statut;
 
     public function __construct()
     {
@@ -157,6 +163,18 @@ class Groupe
     public function setPromos(?Promo $promos): self
     {
         $this->promos = $promos;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

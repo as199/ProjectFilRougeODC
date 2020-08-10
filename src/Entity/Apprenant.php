@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use App\Entity\User;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ApprenantRepository;
+use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ApprenantRepository::class)
@@ -19,6 +20,12 @@ class Apprenant extends User
      * @ORM\ManyToMany(targetEntity=Groupe::class, mappedBy="apprenants")
      */
     private $groupes;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"admin_groupe_apprenant:read","admin_promo_apprenant:read"})
+     */
+    private $statut;
 
     public function __construct()
     {
@@ -50,6 +57,18 @@ class Apprenant extends User
             $this->groupes->removeElement($groupe);
             $groupe->removeApprenant($this);
         }
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }
