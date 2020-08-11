@@ -29,5 +29,11 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="@localhost [3]" uuid="2dff015c-b9ee-4731-98a7-7dcf2b51ee92">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MARIADB" exact-version="0" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-mapping />
+    </data-source>
   </component>
 </project>

@@ -7,6 +7,7 @@ use App\Repository\PromoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PromoRepository::class)
@@ -18,21 +19,24 @@ class Promo
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      */
     private $nomPromotion;
 
     /**
      * @ORM\Column(type="date")
-     */
+     *
     private $dateDebut;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     *
      */
     private $dateFin;
 

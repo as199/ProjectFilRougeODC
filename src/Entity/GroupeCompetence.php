@@ -7,6 +7,7 @@ use App\Repository\GroupeCompetenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=GroupeCompetenceRepository::class)
@@ -18,21 +19,26 @@ class GroupeCompetence
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"grcreferenciel:read",})
      */
     private $id;
 
     /**
      * @ORM\ManyToMany(targetEntity=Referenciel::class, inversedBy="groupeCompetences")
+     *  @Groups({"grcreferenciel:read",})
+     *
      */
     private $referentiels;
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="groupeCompetences")
+     * @Groups({"grcreferenciel:read"})
      */
     private $competences;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"referenciel:read","grcreferenciel:read"})
      */
     private $libelle;
 

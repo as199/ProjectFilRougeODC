@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ApprenantRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ApprenantRepository::class)
@@ -17,6 +18,7 @@ class Apprenant extends User
 {
     /**
      * @ORM\ManyToMany(targetEntity=Groupe::class, mappedBy="apprenants")
+     *
      */
     private $groupes;
 
