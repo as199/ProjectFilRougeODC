@@ -11,7 +11,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=NiveauRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ * itemOperations={
+ * "GET", "PUT",
+ * },
+ * collectionOperations={
+ * "GET", "POST",
+ * }
+ * )
  */
 class Niveau
 {
@@ -30,7 +37,7 @@ class Niveau
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="niveaux")
+     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="niveaux", cascade={"persist"})
      */
     private $competences;
 

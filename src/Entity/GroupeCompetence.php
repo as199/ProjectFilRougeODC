@@ -56,6 +56,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *    "normalization_context"={"groups":"gprecompetence:read"},
  *    "access_control"="(is_granted('ROLE_ADMIN'))",
  *    "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *    "route_name"="ajout_groupe_competence"
  *   }
  * }
  * )
@@ -76,8 +77,8 @@ class GroupeCompetence
     private $referentiels;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="groupeCompetences")
-     * @Groups({"gc:read"})
+     * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="groupeCompetences", cascade={"persist"})
+     * @Groups({"gc:read", "gprecompetence:read"})
      */
     private $competences;
 

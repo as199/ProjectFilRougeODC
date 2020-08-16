@@ -41,7 +41,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *    "path": "/admin/competences",
  *    "normalization_context"={"groups":"competence:read"},
  *    "access_control"="(is_granted('ROLE_ADMIN'))",
- *    "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *    "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *    "route_name"="add_competence"
  *   }
  * }
  * )
@@ -63,12 +64,12 @@ class Competence
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, inversedBy="competences")
+     * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, inversedBy="competences", cascade={"persist"})
      */
     private $groupeCompetences;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Niveau::class, mappedBy="competences")
+     * @ORM\ManyToMany(targetEntity=Niveau::class, mappedBy="competences", cascade={"persist"})
      * @Groups({"competence:read"})
      */
     private $niveaux;
