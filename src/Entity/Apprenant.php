@@ -12,21 +12,32 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ApprenantRepository::class)
- * @ApiResource(itemOperations={"PUT","DELETE","GET"},
+ * @ApiResource(itemOperations={"PUT","DELETE","GET",
+ *  "admin_promo_apprenant_attente_id":{
+ *              "path":"admin/promo/apprenants/attente",
+ *              "normalization_context"={"groups":"admin_promo_attente:read"}
+ *         }
+ * },
  * collectionOperations={"GET"={"path":"/admin/groups/apprenant",}
- * ,"POST"}
+ * ,"POST",
+ *  "admin_promo_apprenant_attente":{
+ *              "path":"admin/promo/apprenants/attente",
+ *              "normalization_context"={"groups":"admin_promo_attente:read"}
+ *         }
+ * }
  * )
  */
 class Apprenant extends User
 {
     /**
      * @ORM\ManyToMany(targetEntity=Groupe::class, mappedBy="apprenants")
+     * @Groups({"admin_promo_attente:read"})
      */
     private $groupes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+     * @Groups({"admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read","admin_promo_attente:read"})
      */
     private $statut;
 

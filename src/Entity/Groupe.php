@@ -17,6 +17,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "normalization_context"={"groups":"admin_groupe:read"},
  *      
  *      },
+ *      "get1":{
+ *          "method":"get",
+ *          "path":"admin/groupes/apprenants",
+ *          "normalization_context"={"groups":"admin_groupe_apprenant:read"},
+ *      
+ *      },
  *      "admin_promo_principal":{
  *      "path":"admin/promo/principal",
  *      "normalization_context"={"groups":"admin_promo_principal:read"},
@@ -52,7 +58,7 @@ class Groupe
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *  @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+     *  @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read","admin_promo_attente:read"})
      */
     private $id;
 
@@ -76,7 +82,7 @@ class Groupe
 
     /**
      * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="groupes",cascade={"persist"})
-     * @Groups({"admin_groupe:read"})
+     * @Groups({"admin_groupe:read","admin_promo_attente:read"})
      */
     private $promos;
 

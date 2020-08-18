@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ProfilSortiRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProfilSortiRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ProfilSortiRepository::class)
@@ -23,6 +24,7 @@ class ProfilSorti
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"groups":"admin_promo_attente:read"})
      */
     private $libelle;
 

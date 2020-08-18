@@ -103,7 +103,7 @@ class Promo
 
     /**
      * @ORM\ManyToMany(targetEntity=Referenciel::class, mappedBy="promos")
-     *  @Groups({"admin_promo:read","admin_promo_referenciel:read"})
+     *  @Groups({"admin_promo:read","admin_promo_referenciel:read","admin_promo_attente:read"})
      */
     private $referenciels;
 
