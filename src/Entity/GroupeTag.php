@@ -7,14 +7,16 @@ use App\Repository\GroupeTagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=GroupeTagRepository::class)
- * @ApiResource(itemOperations={
+ * @ApiResource(attributes={"pagination_items_per_page"=2},
+ *     itemOperations={
 *             "get_grptags_id": {
  *             "method": "GET",
  *             "path": "/admin/grptags/{id}",
- *              "normalization_context"={"groups":"formateur:read"},
+ *              "normalization_context"={"groups":"grptag:read"},
  *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource"
  *
@@ -22,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     ,"put_grptags_id": {
  *             "method": "PUT",
  *             "path": "/admin/grptags/{id}",
- *              "normalization_context"={"groups":"formateur:read"},
+ *              "normalization_context"={"groups":"grptag:read"},
  *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource"
  *
@@ -30,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     "delete_grptags_id": {
  *             "method": "DELETE",
  *             "path": "/admin/grptags/{id}",
- *              "normalization_context"={"groups":"formateur:read"},
+ *              "normalization_context"={"grptag":"formateur:read"},
  *              "access_control"="(is_granted('ROLE_ADMIN'))",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource"
  *
@@ -40,14 +42,14 @@ use Doctrine\ORM\Mapping as ORM;
 *       "get_grpstags": {
  *             "method": "GET",
  *             "path": "/admin/grptags",
- *              "normalization_context"={"groups":"formateur:read"},
+ *              "normalization_context"={"grptag":"formateur:read"},
  *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource"
  *
  *         },"post_grpstags": {
  *             "method": "POST",
  *             "path": "/admin/grptags",
- *              "normalization_context"={"groups":"formateur:read"},
+ *              "normalization_context"={"groups":"grptag:read"},
  *              "access_control"="(is_granted('ROLE_ADMIN')or is_granted('ROLE_FORMATEUR'))",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource"
  *
@@ -60,6 +62,7 @@ class GroupeTag
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"grptag:read"})
      */
     private $id;
 
@@ -70,6 +73,7 @@ class GroupeTag
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"grptag:read"})
      */
     private $libelle;
 
