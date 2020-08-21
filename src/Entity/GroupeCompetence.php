@@ -67,24 +67,25 @@ class GroupeCompetence
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"gprecompetence:read"})
+     * @Groups({"gprecompetence:read","grcreferenciel:read"})
      */
     private $id;
 
     /**
      * @ORM\ManyToMany(targetEntity=Referenciel::class, inversedBy="groupeCompetences")
+     * @Groups({"grcreferenciel:read",})
      */
     private $referentiels;
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="groupeCompetences", cascade={"persist"})
-     * @Groups({"gc:read", "gprecompetence:read"})
+     * @Groups({"gc:read","grcreferenciel:read", "gprecompetence:read"})
      */
     private $competences;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"gprecompetence:read"})
+     * @Groups({"gprecompetence:read","referenciel:read","grcreferenciel:read"})
      */
     private $libelle;
 
