@@ -51,11 +51,13 @@ class Promo
      */
     private $referenciels;
 
+
     public function __construct()
     {
         $this->formateurs = new ArrayCollection();
         $this->groupes = new ArrayCollection();
         $this->referenciels = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -183,4 +185,8 @@ class Promo
 
         return $this;
     }
+
+
+
+
 }
