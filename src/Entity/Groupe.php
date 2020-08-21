@@ -2,15 +2,48 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\GroupeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GroupeRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=GroupeRepository::class)
+ * @ApiResource(
+ *  collectionOperations={
+ *      "get":{
+ *          "path":"admin/groupes",
+ *          "name":"get_admin_groupe",
+ *          "normalization_context"={"groups":"admin_groupe:read"}
+ *      },
+ *      "get":{
+ *          "path":"admin/groupes/apprenants",
+ *          "name":"get_admin_groupe",
+ *          "normalization_context"={"groups":"admin_groupe_app:read"}
+ *      },
+ *      "post":{
+ *          "path":"admin/groupes",
+ *          "name":"post_admin_groupe"
+ *      },
+ *  },
+ *  itemOperations={
+ *      "get":{
+ *          "path":"admin/groupes/{id}",
+ *          "name":"get_admin_groupe_id",
+ *          "normalization_context"={"groups":"admin_groupe:read"}
+ *      },
+ *      "put":{
+ *          "path":"admin/groupes/{id}",
+ *          "name":"put_admin_groupe_id"
+ *      },
+ *      "delete":{
+ *          "path":"admin/groupes/{id}/apprenants",
+ *          "name":"delete_admin_groupe_id"
+ *      }
+ *  }
+ * )
  */
 class Groupe
 {
@@ -18,16 +51,19 @@ class Groupe
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"admin_promo_groupe:read","admin_promo_groupe_app:read","admin_groupe:read","admin_groupe_app:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"admin_promo_groupe:read","admin_promo_groupe_app:read","admin_groupe:read","admin_groupe_app:read"})
      */
     private $nomGroupe;
 
     /**
      * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes")
+     * @Groups({"admin_promo_groupe_app:read","admin_groupe_app:read"})
      */
     private $apprenants;
 
