@@ -14,51 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  * collectionOperations={
  *  "get":{
- *      "path":"admin/promo",
- *      "normalization_context"={"groups":"admin_promo:read"},
- *  },
- *  
- *  "post":{
- *      "path":"admin/promo",
- *  }
- * },
- * itemOperations={
- *  "get":{
- *      "path":"admin/promo/{id}",
- *      "normalization_context"={"groups":"admin_promo:read"},
- *   },
- *  "get1":{
- *      "method":"get",
- *      "path":"admin/promo/{id}/groupes",
- *      "normalization_context"={"groups":"admin_promo_groupe:read"},
- *  },
- * 
- *   "get2":{
- *      "method":"get",
- *      "path":"admin/promo/{id}/formateurs",
- *      "normalization_context"={"groups":"admin_promo_formateur:read"},
- *  },
- * "get3":{
- *      "method":"get",
- *      "path":"admin/promo/{id}/apprenants",
- *      "normalization_context"={"groups":"admin_promo_apprenant:read"},
- *  },
- *  "get4":{
- *      "method":"get",
- *      "path":"admin/promo/{id}/referentiels",
- *      "normalization_context"={"groups":"admin_promo_referenciel:read"},
- *  },
- *  
- *  "admin_promo_principal_apprenant":{
- *      "path":"api/admin/promo/{id}/groupes/{id}/apprenants",
- *      "normalization_context"={"groups":"admin_promo_principal:read"},
- *      
- *  },
- *  "put":{
- *      "path":"admin/promo/{id}",
- *  }
- * }
- 
+
  * )
  */
 class Promo
@@ -67,51 +23,52 @@ class Promo
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+
      */
     private $nomPromotion;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     *  @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
-     */
+
     private $dateFin;
 
     /**
      * @ORM\ManyToMany(targetEntity=Formateur::class, inversedBy="promos")
-     * @Groups({"admin_promo:read","admin_promo_formateur:read"})
+
      */
     private $formateurs;
 
     /**
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="promos",cascade={"persist"})
-     * @Groups({"admin_promo:read","admin_promo_groupe:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+
      */
     private $groupes;
 
     /**
      * @ORM\ManyToMany(targetEntity=Referenciel::class, mappedBy="promos")
-     *  @Groups({"admin_promo:read","admin_promo_referenciel:read","admin_promo_attente:read"})
+
      */
     private $referenciels;
+
 
     public function __construct()
     {
         $this->formateurs = new ArrayCollection();
         $this->groupes = new ArrayCollection();
         $this->referenciels = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -239,4 +196,16 @@ class Promo
 
         return $this;
     }
+
+
+
+
 }
+
+
+
+// *  "get":{
+//     *      "path":"admin/promo/{id}/groupes/{id}/apprenants",
+//     *      "name":"get_admin_promo_groupes_apprenants",
+//     *      "normalization_context"={"groups":"admin_promo_groupe_app:read"}
+//     *  },

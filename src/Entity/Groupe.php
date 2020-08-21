@@ -10,56 +10,41 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+
+ * @ORM\Entity(repositoryClass=GroupeRepository::class)
  * @ApiResource(
  *  collectionOperations={
  *      "get":{
  *          "path":"admin/groupes",
- *          "normalization_context"={"groups":"admin_groupe:read"},
+ *          "name":"get_admin_groupe",
+ *          "normalization_context"={"groups":"admin_groupe:read"}
  *      },
- *      "get1":{
- *          "method":"get",
+ *      "get":{
  *          "path":"admin/groupes/apprenants",
- *          "normalization_context"={"groups":"admin_groupe_apprenant:read"},
- *          "access_control"="(is_granted('ROLE_ADMIN','ROLE_FORMATEUR'))",
- *          "access_control_message"="Vous n'avez pas access à cette Ressource",
- *      
- *      },
- *      "admin_promo_principal":{
- *      "path":"admin/promo/principal",
- *      "normalization_context"={"groups":"admin_promo_principal:read"},
- *      "access_control"="(is_granted('ROLE_ADMIN','ROLE_FORMATEUR'))",
- *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *          "name":"get_admin_groupe",
+ *          "normalization_context"={"groups":"admin_groupe_app:read"}
  *      },
  *      "post":{
  *          "path":"admin/groupes",
- *      }
+ *          "name":"post_admin_groupe"
+ *      },
  *  },
  *  itemOperations={
  *      "get":{
  *          "path":"admin/groupes/{id}",
- *          "normalization_context"={"groups":"admin_groupe:read"},
- *          "access_control"="(is_granted('ROLE_ADMIN','ROLE_FORMATEUR'))",
- *          "access_control_message"="Vous n'avez pas access à cette Ressource",
- *      },
- *      "admin_promo_principal_id":{
- *      "path":"admin/promo/{id}/principal",
- *      "normalization_context"={"groups":"admin_promo_principal:read"},
- *      "access_control"="(is_granted('ROLE_ADMIN','ROLE_FORMATEUR'))",
- *          "access_control_message"="Vous n'avez pas access à cette Ressource",
- *      
+ *          "name":"get_admin_groupe_id",
+ *          "normalization_context"={"groups":"admin_groupe:read"}
  *      },
  *      "put":{
  *          "path":"admin/groupes/{id}",
- *          "access_control"="(is_granted('ROLE_ADMIN','ROLE_FORMATEUR'))",
- *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *          "name":"put_admin_groupe_id"
  *      },
  *      "delete":{
- *          "path":"admin/groupes/{id}",
- *          
+ *          "path":"admin/groupes/{id}/apprenants",
+ *          "name":"delete_admin_groupe_id"
  *      }
  *  }
  * )
- * @ORM\Entity(repositoryClass=GroupeRepository::class)
  */
 class Groupe
 {
@@ -67,19 +52,19 @@ class Groupe
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *  @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read","admin_promo_attente:read"})
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+
      */
     private $nomGroupe;
 
     /**
      * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes")
-     * @Groups({"admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+
      */
     private $apprenants;
 
