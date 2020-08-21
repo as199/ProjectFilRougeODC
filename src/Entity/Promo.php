@@ -14,7 +14,46 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  * collectionOperations={
  *  "get":{
-
+ *      "path":"admin/promo/",
+ *      "name":"get_admin_promo",
+ *      "normalization_context"={"groups":"admin_promo:read"}
+ *  },
+ *  "post":{
+ *      "path":"admin/promo/",
+ *      "name":"post_admin_promo"
+ *  },
+ *  
+ * },
+ * itemOperations={
+ * "get":{
+ *      "path":"admin/promo/{id}",
+ *      "name":"get_admin_promo_id",
+ *      "normalization_context"={"groups":"admin_promo:read"}
+ *  },
+ *  "get":{
+ *      "path":"admin/promo/{id}/referentiels",
+ *      "name":"get_admin_promo_id",
+ *      "normalization_context"={"groups":"admin_promo_referentiel:read"}
+ *  },
+ *  "get":{
+ *      "path":"admin/promo/{id}/formateurs",
+ *      "name":"get_admin_promo_formateurs",
+ *      "normalization_context"={"groups":"admin_promo_formateur:read"}
+ *  },
+ *  "get":{
+ *      "path":"admin/promo/{id}/groupes",
+ *      "name":"get_admin_promo_groupes",
+ *      "normalization_context"={"groups":"admin_promo_groupe:read"}
+ *  },
+ *  "put":{
+ *      "path":"admin/promo/{id}",
+ *      "name":"post_admin_promo"
+ *  },
+ *  "put":{
+ *      "path":"admin/promo/{id}/apprenants",
+ *      "name":"post_admin_promo_app"
+ *  }
+ * }
  * )
  */
 class Promo
