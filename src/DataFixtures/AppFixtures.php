@@ -55,9 +55,23 @@ class AppFixtures extends Fixture
                     $manager->persist($admin);
                 }
             } elseif ($libelle == "APPRENANT") {
-                for ($i = 1; $i <= 3; $i++) {
+                for ($i = 1; $i <= 4; $i++) {
                     $user = new Apprenant();
-                    $user->setProfil($profil)
+                    if($i==3 || $i==4){
+                        $user->setProfil($profil)
+                        ->setTelephone($faker->phoneNumber)
+                        ->setUsername($faker->userName)
+                        ->setEmail(strtolower($libelle) . $i . '@gmail.com')
+                        ->setPrenom($faker->firstName)
+                        ->setNom($faker->lastName)
+                        ->setStatut("attente")
+                        ->setAdresse($faker->address);
+                    //Génération des Users
+                    $password = $this->encoder->encodePassword($user, 'pass1234');
+                    $user->setPassword($password);
+
+                    }else{
+                        $user->setProfil($profil)
                         ->setTelephone($faker->phoneNumber)
                         ->setUsername($faker->userName)
                         ->setEmail(strtolower($libelle) . $i . '@gmail.com')
@@ -68,7 +82,10 @@ class AppFixtures extends Fixture
                     $password = $this->encoder->encodePassword($user, 'pass1234');
                     $user->setPassword($password);
 
+                    
+                    };
                     $manager->persist($user);
+                    
                 }
             } elseif ($libelle == "CM") {
                 for ($i = 1; $i <= 3; $i++) {
@@ -129,8 +146,14 @@ class AppFixtures extends Fixture
                         $groupes =["groupe1","groupe2","groupe3"];
                         foreach ($groupes as $key => $libelle){
                             $groupe = new Groupe();
-                            $groupe->setNomGroupe($libelle)
-                                ->setPromos($promo);
+                            if($libelle=="groupe1"){
+                                $groupe->setNomGroupe($libelle)
+                                    ->setPromos($promo)
+                                    ->setStatut("principal");
+                                }else{
+                                    $groupe->setNomGroupe($libelle)
+                                    ->setPromos($promo);
+                                };
                             $manager->persist($groupe);
 
                     }
@@ -145,8 +168,14 @@ class AppFixtures extends Fixture
                         $groupes =["groupe1","groupe2","groupe3","groupe4","groupe5"];
                         foreach ($groupes as $key => $libelle){
                             $groupe = new Groupe();
+                            if($libelle=="groupe1"){
                             $groupe->setNomGroupe($libelle)
+                                ->setPromos($promo)
+                                ->setStatut("principal");
+                            }else{
+                                $groupe->setNomGroupe($libelle)
                                 ->setPromos($promo);
+                            };
                             $manager->persist($groupe);
 
                     }
@@ -161,8 +190,14 @@ class AppFixtures extends Fixture
                         $groupes =["groupe1","groupe2","groupe3","groupe4","groupe5","groupe6","groupe7","groupe8","groupe9"];
                         foreach ($groupes as $key => $libelle){
                             $groupe = new Groupe();
-                            $groupe->setNomGroupe($libelle)
-                                ->setPromos($promo);
+                            if($libelle=="groupe1"){
+                                $groupe->setNomGroupe($libelle)
+                                    ->setPromos($promo)
+                                    ->setStatut("principal");
+                                }else{
+                                    $groupe->setNomGroupe($libelle)
+                                    ->setPromos($promo);
+                                };
                             $manager->persist($groupe);
 
                     }
