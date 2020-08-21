@@ -2,15 +2,23 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\NiveauRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\NiveauRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=NiveauRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ * itemOperations={
+ * "GET", "PUT",
+ * },
+ * collectionOperations={
+ * "GET", "POST",
+ * }
+ * )
  */
 class Niveau
 {
@@ -18,16 +26,18 @@ class Niveau
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"competence:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"competence:read"})
      */
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="niveaux")
+     * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="niveaux", cascade={"persist"})
      */
     private $competences;
 
