@@ -2,15 +2,59 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\PromoRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PromoRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PromoRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ * collectionOperations={
+ *  "get":{
+ *      "path":"admin/promo/",
+ *      "name":"get_admin_promo",
+ *      "normalization_context"={"groups":"admin_promo:read"}
+ *  },
+ *  "post":{
+ *      "path":"admin/promo/",
+ *      "name":"post_admin_promo"
+ *  },
+ *  
+ * },
+ * itemOperations={
+ * "get":{
+ *      "path":"admin/promo/{id}",
+ *      "name":"get_admin_promo_id",
+ *      "normalization_context"={"groups":"admin_promo:read"}
+ *  },
+ *  "get":{
+ *      "path":"admin/promo/{id}/referentiels",
+ *      "name":"get_admin_promo_id",
+ *      "normalization_context"={"groups":"admin_promo_referentiel:read"}
+ *  },
+ *  "get":{
+ *      "path":"admin/promo/{id}/formateurs",
+ *      "name":"get_admin_promo_formateurs",
+ *      "normalization_context"={"groups":"admin_promo_formateur:read"}
+ *  },
+ *  "get":{
+ *      "path":"admin/promo/{id}/groupes",
+ *      "name":"get_admin_promo_groupes",
+ *      "normalization_context"={"groups":"admin_promo_groupe:read"}
+ *  },
+ *  "put":{
+ *      "path":"admin/promo/{id}",
+ *      "name":"post_admin_promo"
+ *  },
+ *  "put":{
+ *      "path":"admin/promo/{id}/apprenants",
+ *      "name":"post_admin_promo_app"
+ *  }
+ * }
+ * )
  */
 class Promo
 {
@@ -18,44 +62,52 @@ class Promo
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+
      */
     private $nomPromotion;
 
     /**
      * @ORM\Column(type="date")
+
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     */
+
     private $dateFin;
 
     /**
      * @ORM\ManyToMany(targetEntity=Formateur::class, inversedBy="promos")
+
      */
     private $formateurs;
 
     /**
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="promos",cascade={"persist"})
+
      */
     private $groupes;
 
     /**
      * @ORM\ManyToMany(targetEntity=Referenciel::class, mappedBy="promos")
+
      */
     private $referenciels;
+
 
     public function __construct()
     {
         $this->formateurs = new ArrayCollection();
         $this->groupes = new ArrayCollection();
         $this->referenciels = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -183,4 +235,16 @@ class Promo
 
         return $this;
     }
+
+
+
+
 }
+
+
+
+// *  "get":{
+//     *      "path":"admin/promo/{id}/groupes/{id}/apprenants",
+//     *      "name":"get_admin_promo_groupes_apprenants",
+//     *      "normalization_context"={"groups":"admin_promo_groupe_app:read"}
+//     *  },

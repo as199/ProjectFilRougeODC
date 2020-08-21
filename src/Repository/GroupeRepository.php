@@ -47,4 +47,28 @@ class GroupeRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByStatutGroupe($value)
+    {
+        return $this->createQueryBuilder('g')
+            //->innerJoin('p.groupes', 'g')
+            ->andWhere('g.statut = :val')
+            ->setParameter('val', $value)
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByStatutGroupeid($value, $id)
+    {
+        return $this->createQueryBuilder('g')
+            //->innerJoin('p.groupes', 'g')
+            ->andWhere('g.statut = :val')
+            ->setParameter('val', $value)
+            ->andWhere('g.id = :id')
+            ->setParameter('id', $id)
+            
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -102,7 +102,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *              "access_control"="(is_granted('ROLE_ADMIN'))",
  *              "access_control_message"="Vous n'avez pas access à cette Ressource",
  *              "route_name"="cm_listes"
- *         }
+ *         },
+ * 
  * }
  * )
  */
@@ -112,14 +113,14 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"apprenant:read"})
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","admin_promo:read","admin_promo_formateur:read"})
      */
     private $username;
 
@@ -135,25 +136,25 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $telephone;
 
@@ -165,19 +166,20 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $email;
 
     /**
      * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $profil;
 
     /**
      * @ORM\ManyToMany(targetEntity=ProfilSorti::class, mappedBy="users")
+     * 
      */
     private $profilSortis;
 

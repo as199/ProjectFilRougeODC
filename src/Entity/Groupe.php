@@ -2,15 +2,49 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\GroupeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GroupeRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+
  * @ORM\Entity(repositoryClass=GroupeRepository::class)
+ * @ApiResource(
+ *  collectionOperations={
+ *      "get":{
+ *          "path":"admin/groupes",
+ *          "name":"get_admin_groupe",
+ *          "normalization_context"={"groups":"admin_groupe:read"}
+ *      },
+ *      "get":{
+ *          "path":"admin/groupes/apprenants",
+ *          "name":"get_admin_groupe",
+ *          "normalization_context"={"groups":"admin_groupe_app:read"}
+ *      },
+ *      "post":{
+ *          "path":"admin/groupes",
+ *          "name":"post_admin_groupe"
+ *      },
+ *  },
+ *  itemOperations={
+ *      "get":{
+ *          "path":"admin/groupes/{id}",
+ *          "name":"get_admin_groupe_id",
+ *          "normalization_context"={"groups":"admin_groupe:read"}
+ *      },
+ *      "put":{
+ *          "path":"admin/groupes/{id}",
+ *          "name":"put_admin_groupe_id"
+ *      },
+ *      "delete":{
+ *          "path":"admin/groupes/{id}/apprenants",
+ *          "name":"delete_admin_groupe_id"
+ *      }
+ *  }
+ * )
  */
 class Groupe
 {
@@ -18,28 +52,39 @@ class Groupe
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+
      */
     private $nomGroupe;
 
     /**
      * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes")
+
      */
     private $apprenants;
 
     /**
      * @ORM\ManyToMany(targetEntity=Formateur::class, inversedBy="groupes")
+     * @Groups({"admin_groupe:read","admin_promo_principal:read"})
      */
     private $formateurs;
 
     /**
      * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="groupes",cascade={"persist"})
+     * @Groups({"admin_groupe:read","admin_promo_attente:read"})
      */
     private $promos;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+     */
+    private $statut;
 
     public function __construct()
     {
@@ -124,6 +169,18 @@ class Groupe
     public function setPromos(?Promo $promos): self
     {
         $this->promos = $promos;
+
+        return $this;
+    }
+
+    public function getStatut(): ?string
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?string $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

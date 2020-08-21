@@ -7,10 +7,46 @@ use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TagRepository::class)
- * @ApiResource()
+ * @ApiResource(attributes={"pagination_items_per_page"=2},
+ *     collectionOperations={
+ *     "get_tags": {
+ *             "method": "GET",
+ *             "path": "/admin/tags",
+ *              "normalization_context"={"groups":"tag:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         },"post_tags": {
+ *             "method": "POST",
+ *             "path": "/admin/tags",
+ *              "normalization_context"={"groups":"tag:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN')or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *     },itemOperations={
+ *     "get_tags_id": {
+ *             "method": "GET",
+ *             "path": "/admin/tags/{id}",
+ *              "normalization_context"={"groups":"tag:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *     ,"put_tags_id": {
+ *             "method": "PUT",
+ *             "path": "/admin/tags/{id}",
+ *              "normalization_context"={"groups":"tag:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource"
+ *
+ *         }
+ *
+ *     })
  */
 class Tag
 {
@@ -18,11 +54,13 @@ class Tag
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"tag:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"tag:read"})
      */
     private $libelle;
 
