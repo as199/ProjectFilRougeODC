@@ -15,18 +15,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "get":{
  *          "path":"admin/groupes",
  *          "normalization_context"={"groups":"admin_groupe:read"},
- *      
  *      },
  *      "get1":{
  *          "method":"get",
  *          "path":"admin/groupes/apprenants",
  *          "normalization_context"={"groups":"admin_groupe_apprenant:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN','ROLE_FORMATEUR'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
  *      
  *      },
  *      "admin_promo_principal":{
  *      "path":"admin/promo/principal",
  *      "normalization_context"={"groups":"admin_promo_principal:read"},
- *      
+ *      "access_control"="(is_granted('ROLE_ADMIN','ROLE_FORMATEUR'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
  *      },
  *      "post":{
  *          "path":"admin/groupes",
@@ -36,17 +38,24 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "get":{
  *          "path":"admin/groupes/{id}",
  *          "normalization_context"={"groups":"admin_groupe:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN','ROLE_FORMATEUR'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
  *      },
  *      "admin_promo_principal_id":{
  *      "path":"admin/promo/{id}/principal",
  *      "normalization_context"={"groups":"admin_promo_principal:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN','ROLE_FORMATEUR'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
  *      
  *      },
  *      "put":{
  *          "path":"admin/groupes/{id}",
+ *          "access_control"="(is_granted('ROLE_ADMIN','ROLE_FORMATEUR'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
  *      },
  *      "delete":{
  *          "path":"admin/groupes/{id}",
+ *          
  *      }
  *  }
  * )
