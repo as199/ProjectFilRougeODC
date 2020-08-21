@@ -17,7 +17,7 @@ security:
         login:
             pattern: ^/login
             stateless: true
-            anonymous: false
+            anonymous: true
             json_login:
                 check_path: /login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -31,7 +31,7 @@ security:
         api:
                 pattern: ^/api
                 stateless: true
-                anonymous: false
+                anonymous: true
                 provider: app_user_provider
                 guard:
                     authenticators:

@@ -20,18 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ab8df007-02f7-4c2c-9cae-ab9a2a9f943a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Apprenant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Apprenant.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/GroupeCompetence.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Promo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Promo.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Referenciel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Referenciel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +185,8 @@
       <workItem from="1596963933777" duration="20968000" />
       <workItem from="1597052562343" duration="13915000" />
       <workItem from="1597075993924" duration="7554000" />
-      <workItem from="1597142201302" duration="1039000" />
+      <workItem from="1597142201302" duration="2769000" />
+      <workItem from="1597707067785" duration="1824000" />
     </task>
     <servers />
   </component>
@@ -222,10 +215,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="321" y="79" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1280.680@0.0.1280.680" timestamp="1597100312978" />
-    <state width="261" height="459" key="HiddenNamespacesPopup" timestamp="1597146628508">
+    <state width="261" height="459" key="HiddenNamespacesPopup" timestamp="1597146683356">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="261" height="459" key="HiddenNamespacesPopup/0.0.1280.680@0.0.1280.680" timestamp="1597146628508" />
+    <state width="261" height="459" key="HiddenNamespacesPopup/0.0.1280.680@0.0.1280.680" timestamp="1597146683356" />
     <state width="263" height="500" key="HiddenNamespacesPopup/72.27.1294.741@72.27.1294.741" timestamp="1596875214037" />
     <state x="41" y="0" key="SettingsEditor" timestamp="1597066957539">
       <screen x="0" y="0" width="1280" height="680" />
