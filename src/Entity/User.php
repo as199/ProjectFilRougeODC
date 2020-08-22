@@ -183,9 +183,15 @@ class User implements UserInterface
      */
     private $profilSortis;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="user")
+     */
+    private $chats;
+
     public function __construct()
     {
         $this->profilSortis = new ArrayCollection();
+        $this->chats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -368,6 +374,37 @@ class User implements UserInterface
         if ($this->profilSortis->contains($profilSorti)) {
             $this->profilSortis->removeElement($profilSorti);
             $profilSorti->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Chat[]
+     */
+    public function getChats(): Collection
+    {
+        return $this->chats;
+    }
+
+    public function addChat(Chat $chat): self
+    {
+        if (!$this->chats->contains($chat)) {
+            $this->chats[] = $chat;
+            $chat->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChat(Chat $chat): self
+    {
+        if ($this->chats->contains($chat)) {
+            $this->chats->removeElement($chat);
+            // set the owning side to null (unless already changed)
+            if ($chat->getUser() === $this) {
+                $chat->setUser(null);
+            }
         }
 
         return $this;
