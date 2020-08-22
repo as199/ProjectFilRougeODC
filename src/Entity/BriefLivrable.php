@@ -24,6 +24,16 @@ class BriefLivrable
      */
     private $url;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Brief::class, inversedBy="briefLivrables")
+     */
+    private $briefs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Livrable::class, inversedBy="briefLivrables")
+     */
+    private $livrables;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,6 +47,30 @@ class BriefLivrable
     public function setUrl(?string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getBriefs(): ?Brief
+    {
+        return $this->briefs;
+    }
+
+    public function setBriefs(?Brief $briefs): self
+    {
+        $this->briefs = $briefs;
+
+        return $this;
+    }
+
+    public function getLivrables(): ?Livrable
+    {
+        return $this->livrables;
+    }
+
+    public function setLivrables(?Livrable $livrables): self
+    {
+        $this->livrables = $livrables;
 
         return $this;
     }

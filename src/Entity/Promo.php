@@ -107,12 +107,30 @@ class Promo
      */
     private $referenciels;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CompetenceValides::class, mappedBy="promos")
+     */
+    private $competenceValides;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BriefMaPromo::class, mappedBy="promos")
+     */
+    private $briefMaPromos;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="promos")
+     */
+    private $chats;
+
 
     public function __construct()
     {
         $this->formateurs = new ArrayCollection();
         $this->groupes = new ArrayCollection();
         $this->referenciels = new ArrayCollection();
+        $this->competenceValides = new ArrayCollection();
+        $this->briefMaPromos = new ArrayCollection();
+        $this->chats = new ArrayCollection();
 
     }
 
@@ -237,6 +255,99 @@ class Promo
         if ($this->referenciels->contains($referenciel)) {
             $this->referenciels->removeElement($referenciel);
             $referenciel->removePromo($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompetenceValides[]
+     */
+    public function getCompetenceValides(): Collection
+    {
+        return $this->competenceValides;
+    }
+
+    public function addCompetenceValide(CompetenceValides $competenceValide): self
+    {
+        if (!$this->competenceValides->contains($competenceValide)) {
+            $this->competenceValides[] = $competenceValide;
+            $competenceValide->setPromos($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetenceValide(CompetenceValides $competenceValide): self
+    {
+        if ($this->competenceValides->contains($competenceValide)) {
+            $this->competenceValides->removeElement($competenceValide);
+            // set the owning side to null (unless already changed)
+            if ($competenceValide->getPromos() === $this) {
+                $competenceValide->setPromos(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BriefMaPromo[]
+     */
+    public function getBriefMaPromos(): Collection
+    {
+        return $this->briefMaPromos;
+    }
+
+    public function addBriefMaPromo(BriefMaPromo $briefMaPromo): self
+    {
+        if (!$this->briefMaPromos->contains($briefMaPromo)) {
+            $this->briefMaPromos[] = $briefMaPromo;
+            $briefMaPromo->setPromos($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBriefMaPromo(BriefMaPromo $briefMaPromo): self
+    {
+        if ($this->briefMaPromos->contains($briefMaPromo)) {
+            $this->briefMaPromos->removeElement($briefMaPromo);
+            // set the owning side to null (unless already changed)
+            if ($briefMaPromo->getPromos() === $this) {
+                $briefMaPromo->setPromos(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Chat[]
+     */
+    public function getChats(): Collection
+    {
+        return $this->chats;
+    }
+
+    public function addChat(Chat $chat): self
+    {
+        if (!$this->chats->contains($chat)) {
+            $this->chats[] = $chat;
+            $chat->setPromos($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChat(Chat $chat): self
+    {
+        if ($this->chats->contains($chat)) {
+            $this->chats->removeElement($chat);
+            // set the owning side to null (unless already changed)
+            if ($chat->getPromos() === $this) {
+                $chat->setPromos(null);
+            }
         }
 
         return $this;
