@@ -27,6 +27,16 @@ class Commentaire
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=FilDeDiscussion::class, inversedBy="commentaires")
+     */
+    private $filDeDiscussion;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Formateur::class, inversedBy="commentaires")
+     */
+    private $formateurs;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +62,30 @@ class Commentaire
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getFilDeDiscussion(): ?FilDeDiscussion
+    {
+        return $this->filDeDiscussion;
+    }
+
+    public function setFilDeDiscussion(?FilDeDiscussion $filDeDiscussion): self
+    {
+        $this->filDeDiscussion = $filDeDiscussion;
+
+        return $this;
+    }
+
+    public function getFormateurs(): ?Formateur
+    {
+        return $this->formateurs;
+    }
+
+    public function setFormateurs(?Formateur $formateurs): self
+    {
+        $this->formateurs = $formateurs;
 
         return $this;
     }

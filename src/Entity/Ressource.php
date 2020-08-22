@@ -37,6 +37,11 @@ class Ressource
      */
     private $url;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Brief::class, inversedBy="ressources")
+     */
+    private $briefs;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Ressource
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getBriefs(): ?Brief
+    {
+        return $this->briefs;
+    }
+
+    public function setBriefs(?Brief $briefs): self
+    {
+        $this->briefs = $briefs;
 
         return $this;
     }

@@ -83,10 +83,16 @@ class Referenciel
      */
     private $groupeCompetences;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CompetenceValides::class, mappedBy="referenciels")
+     */
+    private $competenceValides;
+
     public function __construct()
     {
         $this->promos = new ArrayCollection();
         $this->groupeCompetences = new ArrayCollection();
+        $this->competenceValides = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -155,6 +161,37 @@ class Referenciel
         if ($this->groupeCompetences->contains($groupeCompetence)) {
             $this->groupeCompetences->removeElement($groupeCompetence);
             $groupeCompetence->removeReferentiel($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompetenceValides[]
+     */
+    public function getCompetenceValides(): Collection
+    {
+        return $this->competenceValides;
+    }
+
+    public function addCompetenceValide(CompetenceValides $competenceValide): self
+    {
+        if (!$this->competenceValides->contains($competenceValide)) {
+            $this->competenceValides[] = $competenceValide;
+            $competenceValide->setReferenciels($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetenceValide(CompetenceValides $competenceValide): self
+    {
+        if ($this->competenceValides->contains($competenceValide)) {
+            $this->competenceValides->removeElement($competenceValide);
+            // set the owning side to null (unless already changed)
+            if ($competenceValide->getReferenciels() === $this) {
+                $competenceValide->setReferenciels(null);
+            }
         }
 
         return $this;

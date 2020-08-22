@@ -27,6 +27,16 @@ class Chat
      */
     private $piecesJointes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="chats")
+     */
+    private $promos;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="chats")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +62,30 @@ class Chat
     public function setPiecesJointes(?string $piecesJointes): self
     {
         $this->piecesJointes = $piecesJointes;
+
+        return $this;
+    }
+
+    public function getPromos(): ?Promo
+    {
+        return $this->promos;
+    }
+
+    public function setPromos(?Promo $promos): self
+    {
+        $this->promos = $promos;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

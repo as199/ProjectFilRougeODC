@@ -105,10 +105,16 @@ class Groupe
      */
     private $statut;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EtatBriefGroupe::class, mappedBy="groupes")
+     */
+    private $etatBriefGroupes;
+
     public function __construct()
     {
         $this->apprenants = new ArrayCollection();
         $this->formateurs = new ArrayCollection();
+        $this->etatBriefGroupes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,6 +206,37 @@ class Groupe
     public function setStatut(?string $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EtatBriefGroupe[]
+     */
+    public function getEtatBriefGroupes(): Collection
+    {
+        return $this->etatBriefGroupes;
+    }
+
+    public function addEtatBriefGroupe(EtatBriefGroupe $etatBriefGroupe): self
+    {
+        if (!$this->etatBriefGroupes->contains($etatBriefGroupe)) {
+            $this->etatBriefGroupes[] = $etatBriefGroupe;
+            $etatBriefGroupe->setGroupes($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtatBriefGroupe(EtatBriefGroupe $etatBriefGroupe): self
+    {
+        if ($this->etatBriefGroupes->contains($etatBriefGroupe)) {
+            $this->etatBriefGroupes->removeElement($etatBriefGroupe);
+            // set the owning side to null (unless already changed)
+            if ($etatBriefGroupe->getGroupes() === $this) {
+                $etatBriefGroupe->setGroupes(null);
+            }
+        }
 
         return $this;
     }

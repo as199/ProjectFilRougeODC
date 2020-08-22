@@ -22,6 +22,16 @@ class EtatBriefGroupe
      */
     private $statut;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Brief::class, inversedBy="etatBriefGroupes")
+     */
+    private $briefs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="etatBriefGroupes")
+     */
+    private $groupes;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +45,30 @@ class EtatBriefGroupe
     public function setStatut(?string $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getBriefs(): ?Brief
+    {
+        return $this->briefs;
+    }
+
+    public function setBriefs(?Brief $briefs): self
+    {
+        $this->briefs = $briefs;
+
+        return $this;
+    }
+
+    public function getGroupes(): ?Groupe
+    {
+        return $this->groupes;
+    }
+
+    public function setGroupes(?Groupe $groupes): self
+    {
+        $this->groupes = $groupes;
 
         return $this;
     }
