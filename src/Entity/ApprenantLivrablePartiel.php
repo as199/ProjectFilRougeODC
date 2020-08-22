@@ -27,6 +27,21 @@ class ApprenantLivrablePartiel
      */
     private $delai;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=LivrablePartiel::class, inversedBy="apprenantLivrablePartiels")
+     */
+    private $livrablePartiels;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Apprenant::class, inversedBy="apprenantLivrablePartiels")
+     */
+    private $apprenants;
+
+    /**
+     * @ORM\OneToOne(targetEntity=FilDeDiscussion::class, cascade={"persist", "remove"})
+     */
+    private $filDeDiscussions;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +67,42 @@ class ApprenantLivrablePartiel
     public function setDelai(\DateTimeInterface $delai): self
     {
         $this->delai = $delai;
+
+        return $this;
+    }
+
+    public function getLivrablePartiels(): ?LivrablePartiel
+    {
+        return $this->livrablePartiels;
+    }
+
+    public function setLivrablePartiels(?LivrablePartiel $livrablePartiels): self
+    {
+        $this->livrablePartiels = $livrablePartiels;
+
+        return $this;
+    }
+
+    public function getApprenants(): ?Apprenant
+    {
+        return $this->apprenants;
+    }
+
+    public function setApprenants(?Apprenant $apprenants): self
+    {
+        $this->apprenants = $apprenants;
+
+        return $this;
+    }
+
+    public function getFilDeDiscussions(): ?FilDeDiscussion
+    {
+        return $this->filDeDiscussions;
+    }
+
+    public function setFilDeDiscussions(?FilDeDiscussion $filDeDiscussions): self
+    {
+        $this->filDeDiscussions = $filDeDiscussions;
 
         return $this;
     }

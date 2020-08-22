@@ -74,10 +74,16 @@ class Competence
      */
     private $niveaux;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CompetenceValides::class, mappedBy="competences")
+     */
+    private $competenceValides;
+
     public function __construct()
     {
         $this->groupeCompetences = new ArrayCollection();
         $this->niveaux = new ArrayCollection();
+        $this->competenceValides = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,6 +152,37 @@ class Competence
         if ($this->niveaux->contains($niveau)) {
             $this->niveaux->removeElement($niveau);
             $niveau->removeCompetence($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CompetenceValides[]
+     */
+    public function getCompetenceValides(): Collection
+    {
+        return $this->competenceValides;
+    }
+
+    public function addCompetenceValide(CompetenceValides $competenceValide): self
+    {
+        if (!$this->competenceValides->contains($competenceValide)) {
+            $this->competenceValides[] = $competenceValide;
+            $competenceValide->setCompetences($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetenceValide(CompetenceValides $competenceValide): self
+    {
+        if ($this->competenceValides->contains($competenceValide)) {
+            $this->competenceValides->removeElement($competenceValide);
+            // set the owning side to null (unless already changed)
+            if ($competenceValide->getCompetences() === $this) {
+                $competenceValide->setCompetences(null);
+            }
         }
 
         return $this;

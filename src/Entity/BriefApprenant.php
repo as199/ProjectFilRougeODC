@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BriefApprenantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,23 @@ class BriefApprenant
      */
     private $statut;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Apprenant::class, inversedBy="briefApprenants")
+     */
+    private $apprenats;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=BriefMaPromo::class, inversedBy="briefApprenants")
+     */
+    private $briefMaPromo;
+
+
+
+    public function __construct()
+    {
+
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,4 +57,32 @@ class BriefApprenant
 
         return $this;
     }
+
+    public function getApprenats(): ?Apprenant
+    {
+        return $this->apprenats;
+    }
+
+    public function setApprenats(?Apprenant $apprenats): self
+    {
+        $this->apprenats = $apprenats;
+
+        return $this;
+    }
+
+    public function getBriefMaPromo(): ?BriefMaPromo
+    {
+        return $this->briefMaPromo;
+    }
+
+    public function setBriefMaPromo(?BriefMaPromo $briefMaPromo): self
+    {
+        $this->briefMaPromo = $briefMaPromo;
+
+        return $this;
+    }
+
+
+
+
 }

@@ -41,9 +41,21 @@ class Niveau
      */
     private $competences;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Brief::class, mappedBy="niveaux")
+     */
+    private $briefs;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=LivrablePartiel::class, inversedBy="niveaux")
+     */
+    private $livrablePartiels;
+
     public function __construct()
     {
         $this->competences = new ArrayCollection();
+        $this->briefs = new ArrayCollection();
+        $this->livrablePartiels = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,6 +96,60 @@ class Niveau
     {
         if ($this->competences->contains($competence)) {
             $this->competences->removeElement($competence);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Brief[]
+     */
+    public function getBriefs(): Collection
+    {
+        return $this->briefs;
+    }
+
+    public function addBrief(Brief $brief): self
+    {
+        if (!$this->briefs->contains($brief)) {
+            $this->briefs[] = $brief;
+            $brief->addNiveau($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBrief(Brief $brief): self
+    {
+        if ($this->briefs->contains($brief)) {
+            $this->briefs->removeElement($brief);
+            $brief->removeNiveau($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LivrablePartiel[]
+     */
+    public function getLivrablePartiels(): Collection
+    {
+        return $this->livrablePartiels;
+    }
+
+    public function addLivrablePartiel(LivrablePartiel $livrablePartiel): self
+    {
+        if (!$this->livrablePartiels->contains($livrablePartiel)) {
+            $this->livrablePartiels[] = $livrablePartiel;
+        }
+
+        return $this;
+    }
+
+    public function removeLivrablePartiel(LivrablePartiel $livrablePartiel): self
+    {
+        if ($this->livrablePartiels->contains($livrablePartiel)) {
+            $this->livrablePartiels->removeElement($livrablePartiel);
         }
 
         return $this;
