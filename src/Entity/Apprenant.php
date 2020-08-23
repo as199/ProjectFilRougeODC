@@ -50,6 +50,12 @@ class Apprenant extends User
      * @ORM\OneToMany(targetEntity=CompetenceValides::class, mappedBy="apprenants")
      */
     private $competenceValides;
+    /**
+     * @ORM\ManyToMany(targetEntity=ProfilSorti::class, mappedBy="apprenants")
+     *
+     */
+    private $profilSortis;
+
 
     /**
      * @ORM\OneToMany(targetEntity=BriefApprenant::class, mappedBy="apprenats")
@@ -63,6 +69,7 @@ class Apprenant extends User
         $this->apprenantLivrablePartiels = new ArrayCollection();
         $this->competenceValides = new ArrayCollection();
         $this->briefApprenants = new ArrayCollection();
+        $this->profilSortis = new ArrayCollection();
     }
 
     /**
@@ -193,6 +200,33 @@ class Apprenant extends User
             if ($briefApprenant->getApprenats() === $this) {
                 $briefApprenant->setApprenats(null);
             }
+        }
+
+        return $this;
+    }
+    /**
+     * @return Collection|ProfilSorti[]
+     */
+    public function getProfilSortis(): Collection
+    {
+        return $this->profilSortis;
+    }
+
+    public function addProfilSorti(ProfilSorti $profilSorti): self
+    {
+        if (!$this->profilSortis->contains($profilSorti)) {
+            $this->profilSortis[] = $profilSorti;
+            $profilSorti->addApprenant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfilSorti(ProfilSorti $profilSorti): self
+    {
+        if ($this->profilSortis->contains($profilSorti)) {
+            $this->profilSortis->removeElement($profilSorti);
+            $profilSorti->removeUser($this);
         }
 
         return $this;

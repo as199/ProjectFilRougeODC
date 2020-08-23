@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="@localhost" uuid="7766630f-bc1f-4f80-95cc-2fee857dfda3">
+    <data-source name="@localhost" uuid="4d2e9137-0ba8-477a-b080-591f65ada17a">
       <database-info product="MariaDB" version="10.4.13-MariaDB" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="2.6.0" dbms="MARIADB" exact-version="10.4.13" exact-driver-version="2.6">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
@@ -12,46 +12,6 @@
       <schema-mapping>
         <introspection-scope>
           <node kind="schema" qname="projetRed" />
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
-    <data-source name="@localhost [2]" uuid="22d1d2b9-a20a-4a9a-ae04-4f14a3670c89">
-      <database-info product="MariaDB" version="10.4.13-MariaDB" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="2.6.0" dbms="MARIADB" exact-version="10.4.13" exact-driver-version="2.6">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="@" />
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
-<<<<<<< HEAD
-    <data-source name="MariaDB - @localhost" uuid="433ef5d4-6783-4b6e-8382-3f6402678931">
-=======
-    <data-source name="MariaDB - @localhost" uuid="65c51dcd-c4bf-4993-908d-d8f8aad87e6b">
->>>>>>> cbefc4407d10e554ffd60d12da5acb9b2c8803a0
-      <database-info product="MariaDB" version="10.4.13-MariaDB" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="2.6.0" dbms="MARIADB" exact-version="10.4.13" exact-driver-version="2.6">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-<<<<<<< HEAD
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="file_rouge_odc" />
-=======
-      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
-      <user-name>root</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="projetRed" />
->>>>>>> cbefc4407d10e554ffd60d12da5acb9b2c8803a0
         </introspection-scope>
       </schema-mapping>
     </data-source>

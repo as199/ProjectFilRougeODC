@@ -177,11 +177,6 @@ class User implements UserInterface
      */
     private $profil;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=ProfilSorti::class, mappedBy="users")
-     * 
-     */
-    private $profilSortis;
 
     /**
      * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="user")
@@ -190,7 +185,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->profilSortis = new ArrayCollection();
+
         $this->chats = new ArrayCollection();
     }
 
@@ -351,33 +346,7 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|ProfilSorti[]
-     */
-    public function getProfilSortis(): Collection
-    {
-        return $this->profilSortis;
-    }
 
-    public function addProfilSorti(ProfilSorti $profilSorti): self
-    {
-        if (!$this->profilSortis->contains($profilSorti)) {
-            $this->profilSortis[] = $profilSorti;
-            $profilSorti->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProfilSorti(ProfilSorti $profilSorti): self
-    {
-        if ($this->profilSortis->contains($profilSorti)) {
-            $this->profilSortis->removeElement($profilSorti);
-            $profilSorti->removeUser($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Chat[]
