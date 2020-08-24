@@ -31,7 +31,7 @@ class Apprenant extends User
 {
     /**
      * @ORM\ManyToMany(targetEntity=Groupe::class, mappedBy="apprenants")
-     * @Groups({"admin_promo_attente:read"})
+     * @Groups({"admin_promo_attente:read","admin_profilsortie:read"})
      */
     private $groupes;
 

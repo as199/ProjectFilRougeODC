@@ -28,6 +28,16 @@ class ApprenantRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+    public function recupApprenants($id)
+    {
+        return $this->createQueryBuilder('a')
+
+            ->innerJoin('App\Entity\Apprenant','g',['g.id'=>$id])
+
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     // /**
     //  * @return Apprenant[] Returns an array of Apprenant objects

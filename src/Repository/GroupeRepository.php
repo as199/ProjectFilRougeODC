@@ -31,7 +31,8 @@ class GroupeRepository extends ServiceEntityRepository
     public function recupid($value)
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.nomGroupe = :val')
+            ->select('g.apprenants')
+            ->andWhere('g.id = :val')
             ->setParameter('val', $value)
             ->getQuery()
             ->getResult()

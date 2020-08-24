@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Apprenant;
+use App\Repository\ApprenantRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\ProfilSortiRepository;
 use App\Repository\PromoRepository;
@@ -17,12 +18,28 @@ class ProfilSortiController extends AbstractController
      * @Route("api/admin/promo/{id}/profilsortie/{num}", name="affiche_apprenat_profil")
      */
    public function recupeApprenant(ProfilSortiRepository $repoPro,PromoRepository $promoRepository,GroupeRepository $repogroup,$id,$num){
-       //$groups =$promoRepository->recupGroup($id);
-    $nompromo = $repogroup->recupApprenant($id);
-    //dd($nompromo[0]);
-       //$nompromo = $repogroup->recupApprenant($id);
-    $taille=(count($nompromo));
+       $promo = $promoRepository->findOneBy(["id" => $id]);
+       $profileSorti = $repoPro->findOneBy(["id" => $num]);
+       if(!$promo || !$profileSorti)
+           return $this->json("l'id du promo ou du profilSortie  n'existe pas", Response::HTTP_BAD_REQUEST);
 
-       return $this->json($nompromo[1], Response::HTTP_OK, [],["groups"=>"admin_profilsortie:read"]);
-   }
+       $groupes= $promo->getGroupes();
+       $grpApprenant=[];
+       foreach($groupes as $groupe)
+       {
+           $apprenants[] = $groupe->getApprenants();
+           foreach($groupe->getApprenants() as $apprenant)
+           {
+               if($apprenant->getProfilSortis())
+               {
+                   $por = $apprenant->getProfilSortis();
+                   $part = $por[0]->getId();
+                   if($part===$profileSorti->getId())
+                       $gprApprenant[]= $apprenant->getProfilSortis();
+               }
+           }
+       }
+       return $this->json($gprApprenant,Response::HTTP_OK);
+
+    }
 }

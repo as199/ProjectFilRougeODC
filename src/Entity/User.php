@@ -113,14 +113,13 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"admin_profilsortie:read","admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"apprenant:read"})
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","admin_promo:read","admin_promo_formateur:read"})
+     * @Groups({"admin_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","admin_promo:read","admin_promo_formateur:read"})
      */
     private $username;
 
