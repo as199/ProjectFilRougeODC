@@ -73,7 +73,7 @@ class Promo
 
     /**
      * @ORM\Column(type="string", length=255)
-    * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+    * @Groups({"admin_id_profilsortie:read","admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
      */
     private $nomPromotion;
 
@@ -97,7 +97,7 @@ class Promo
 
     /**
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="promos",cascade={"persist"})
-    * @Groups({"admin_promo:read","admin_promo_groupe:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+    * @Groups({"admin_id_profilsortie:read","admin_promo:read","admin_promo_groupe:read","admin_promo_apprenant:read","admin_promo_principal:read"})
      */
     private $groupes;
 

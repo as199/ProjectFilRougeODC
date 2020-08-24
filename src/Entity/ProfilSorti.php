@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
  *     },
  * "GET":{
-*           "method":"GET",
+*
  *           "path":"admin/profilsorties",
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
  *     }
@@ -29,14 +29,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
  *     }, "GET2":{
  *          "method":"GET",
- *           "path":"admin/promo/{id}/profilsortie/{num}",
+ *           "path":"api/admin/promo/{id}/profilsortie/{num}",
  *             "controller": App\Controller\ProfilSortiController::class,
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
  *             "route_name"="affiche_apprenat_profil",
  *     },
  *     "PUT":{
- *           "path":"admin/profilsortie/id",
- *           "normalization_context"={"groups":"admin_id_profilsortie:read"},
+ *           "path":"admin/profilsortie/{id}",
  *     }
  *  }
  * )
@@ -47,13 +46,13 @@ class ProfilSorti
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"groups":"admin_profilsortie:read"})
+     * @Groups({"groups":"admin_profilsortie:read","admin_id_profilsortie:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"groups":"admin_promo_attente:read","admin_profilsortie:read"})
+     * @Groups({"admin_put_profilsortie:read","groups":"admin_promo_attente:read","admin_profilsortie:read"})
      */
     private $libelle;
 
@@ -89,9 +88,9 @@ class ProfilSorti
     /**
      * @return Collection|Apprenant[]
      */
-    public function getUsers(): Collection
+    public function getApprenants(): Collection
     {
-        return $this->users;
+        return $this->apprenants;
     }
 
     public function addApprenant(Apprenant $apprenant): self

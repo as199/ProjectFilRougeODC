@@ -19,6 +19,15 @@ class ProfilSortiRepository extends ServiceEntityRepository
         parent::__construct($registry, ProfilSorti::class);
     }
 
+    public function findallApprenant($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return ProfilSorti[] Returns an array of ProfilSorti objects
     //  */

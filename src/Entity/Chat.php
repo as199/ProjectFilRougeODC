@@ -2,11 +2,28 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ChatRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ChatRepository::class)
+ * @ApiResource (collectionOperations={
+*           "GET":{
+*               "method":"GET",
+ *           "path":"users/promo/id/apprenant/id/chats",
+ *             "controller": App\Controller\CommentaireController::class,
+ *              "normalization_context"={"groups":"commentaire:read"},
+ *             "route_name"="affiche_commentaire",
+ *              }
+ *     ,"POST":{
+ *           "method":"POST",
+*           "path":"users/promo/apprenant/ichats",
+ *             "controller": App\Controller\CommentaireController::class,
+ *              "normalization_context"={"groups":"addcommentaire:read"},
+ *             "route_name"="add_commentaire",
+ *     }
+ *     },itemOperations={})
  */
 class Chat
 {
