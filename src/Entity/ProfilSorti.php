@@ -16,6 +16,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 *           "path":"admin/profilsorties",
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
  *     },
+ *
+ *     "GET3":{
+ *          "method":"GET",
+ *           "path":"api/admin/promo/{id}/profilsorties",
+ *             "controller": App\Controller\ProfilSortiController::class,
+ *           "normalization_context"={"groups":"admin_profilsortie:read"},
+ *             "route_name"="affiche_apprenat_profil",
+ *     },
  * "GET":{
 *
  *           "path":"admin/profilsorties",
@@ -27,13 +35,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "method":"GET",
  *           "path":"admin/profilsorties/{id}",
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
- *     }, "GET2":{
+ *     },"GET2":{
  *          "method":"GET",
  *           "path":"api/admin/promo/{id}/profilsortie/{num}",
  *             "controller": App\Controller\ProfilSortiController::class,
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
- *             "route_name"="affiche_apprenat_profil",
+ *             "route_name"="get_apprenat_profil",
  *     },
+ *
  *     "PUT":{
  *           "path":"admin/profilsortie/{id}",
  *     }
