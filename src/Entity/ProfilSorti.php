@@ -13,7 +13,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=ProfilSortiRepository::class)
  * @ApiResource(
  * collectionOperations={"POST":{
-*           "path":"admin/profilsorties",
+*           "path":"api/admin/profilsorties",
+ *             "controller": "App\Controller\ProfilSortiController::class",
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
  *              "route_name"="add_profil_sorti",
  *     },
@@ -21,7 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "GET3":{
  *          "method":"GET",
  *           "path":"api/admin/promo/{id}/profilsorties",
- *             "controller": App\Controller\ProfilSortiController::class,
+ *             "controller": "App\Controller\ProfilSortiController::class",
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
  *             "route_name"="affiche_apprenat_profil",
  *     },

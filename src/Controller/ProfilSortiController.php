@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Apprenant;
+use App\Entity\ProfilSorti;
 use App\Repository\ApprenantRepository;
 use App\Repository\GroupeRepository;
 use App\Repository\ProfilSortiRepository;
 use App\Repository\PromoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ProfilSortiController extends AbstractController
 {
@@ -67,6 +70,21 @@ class ProfilSortiController extends AbstractController
         }
 
         return $this->json($gprApprenant, Response::HTTP_OK);
+
+
+    }
+    /**
+     * @Route("api/admin/profilsorties", name="add_profil_sorti",methods={"POST"})
+     */
+    public function addProfilSortie(SerializerInterface $serializer,ApprenantRepository $apprenantRepository,Request $request,ProfilSortiRepository $profilSortiRepository){
+        $donnes = json_decode($request->getContent(),true);
+
+            $em = $this->getDoctrine()->getManager();
+            $profilsorti = $serializer->denormalize($donnes, ProfilSorti::class);
+
+                $em->persist($profilsorti);
+                $em->flush();
+                return new JsonResponse("success",Response::HTTP_CREATED,[],true);
 
 
     }

@@ -12,17 +12,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource (collectionOperations={
 *           "POST":{
  *          "method":"POST",
-*           "path":"users/promo/id/apprenant/id/chats",
+*           "path":"users/promo/{id}/apprenant/{nim}/chats",
  *             "controller":"App\Controller\ChatController::class",
- *              "normalization_context"={"groups":"addcommentaire:read"},
  *             "route_name"="add_chat",
  *     },
  *     "GET1":{
  *            "method":"GET",
  *           "path":"users/promo/id/apprenant/num/chats",
- *             "controller":"App\Controller\CommentaireController::class",
+ *             "controller":"App\Controller\ChatController::class",
  *              "normalization_context"={"groups":"chat:read"},
- *             "route_name"="affiche_commentaire",
+ *             "route_name"="affiche_chat_apprenant",
  *              }
  *     ,
  *     })

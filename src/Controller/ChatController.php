@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ChatController extends AbstractController
 {
     /**
-     * @Route("users/promo/{id}/apprenant/{num}/chats", name="affiche_commentaire")
+     * @Route("users/promo/{id}/apprenant/{num}/chats", name="affiche_chat_apprenant", methods={"GET"})
      */
     public function recuperationCommentaire(ApprenantRepository $apprenantRepository,ChatRepository $repoChat,PromoRepository $promoRepository,$id,$num){
         $promo = $promoRepository->find($id);
@@ -33,15 +33,18 @@ class ChatController extends AbstractController
         return $this->json($chats, Response::HTTP_OK, []);
     }
     /**
-     * @Route("users/promo/{id}/apprenant/{num}/chats", name="add_chat")
+     * @Route("users/promo/{id}/apprenant/{num}/chats", name="add_chat",methods={"POST"})
      */
     public function addChat(Request $request,SerializerInterface $serializer,UserRepository $userRepository,PromoRepository $promoRepository,$id,$num){
+
         $donnes = json_decode($request->getContent(),true);
+
         $em = $this->getDoctrine()->getManager();
         if ($promoRepository->find($id)) {
             $user = $userRepository->find($num);
             if($user->getProfil()->getLibelle() == "APPRENANT"){
                 $chat = $serializer->denormalize($donnes, Chat::class);
+
                 $em->persist($chat);
                 $em->flush();
                 return new JsonResponse("success",Response::HTTP_CREATED,[],true);
