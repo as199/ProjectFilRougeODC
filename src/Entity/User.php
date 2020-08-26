@@ -113,7 +113,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"admin_profilsortie:read","admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"chat:read","admin_profilsortie:read","admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $id;
 
@@ -135,13 +135,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"chat:read""admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"chat:read","admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $nom;
 
@@ -179,6 +179,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="user")
+     *  @Groups({"chat:read"})
      */
     private $chats;
 

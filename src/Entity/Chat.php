@@ -5,25 +5,27 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ChatRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ChatRepository::class)
  * @ApiResource (collectionOperations={
-*           "GET":{
-*               "method":"GET",
- *           "path":"users/promo/id/apprenant/id/chats",
- *             "controller": App\Controller\CommentaireController::class,
- *              "normalization_context"={"groups":"commentaire:read"},
+*           "POST":{
+ *          "method":"POST",
+*           "path":"users/promo/id/apprenant/id/chats",
+ *             "controller":"App\Controller\ChatController::class",
+ *              "normalization_context"={"groups":"addcommentaire:read"},
+ *             "route_name"="add_chat",
+ *     },
+ *     "GET1":{
+ *            "method":"GET",
+ *           "path":"users/promo/id/apprenant/num/chats",
+ *             "controller":"App\Controller\CommentaireController::class",
+ *              "normalization_context"={"groups":"chat:read"},
  *             "route_name"="affiche_commentaire",
  *              }
- *     ,"POST":{
- *           "method":"POST",
-*           "path":"users/promo/apprenant/ichats",
- *             "controller": App\Controller\CommentaireController::class,
- *              "normalization_context"={"groups":"addcommentaire:read"},
- *             "route_name"="add_commentaire",
- *     }
- *     },itemOperations={})
+ *     ,
+ *     })
  */
 class Chat
 {
@@ -31,28 +33,45 @@ class Chat
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups ({"chat:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups ({"chat:read"})
      */
     private $message;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups ({"chat:read"})
      */
     private $piecesJointes;
 
     /**
      * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="chats")
+     * @Groups({"chat:read"})
      */
     private $promos;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="chats")
+     * @Groups({"chat:read"})
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="date")
+     * @Groups ({"chat:read"})
+     */
+    private $dateRedaction;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Groups ({"chat:read"})
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -103,6 +122,30 @@ class Chat
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDateRedaction(): ?\DateTimeInterface
+    {
+        return $this->dateRedaction;
+    }
+
+    public function setDateRedaction(\DateTimeInterface $dateRedaction): self
+    {
+        $this->dateRedaction = $dateRedaction;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * collectionOperations={"POST":{
 *           "path":"admin/profilsorties",
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
+ *              "route_name"="add_profil_sorti",
  *     },
  *
  *     "GET3":{
@@ -38,7 +39,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     },"GET2":{
  *          "method":"GET",
  *           "path":"api/admin/promo/{id}/profilsortie/{num}",
- *             "controller": App\Controller\ProfilSortiController::class,
+ *             "controller":" App\Controller\ProfilSortiController::class",
  *           "normalization_context"={"groups":"admin_profilsortie:read"},
  *             "route_name"="get_apprenat_profil",
  *     },
