@@ -47,32 +47,24 @@ class ProfilSortiController extends AbstractController
      */
     public function getAppreantsByProfilSortiesInPromo(ProfilSortiRepository $repoPro, PromoRepository $promoRepository, $id, $num)
     {
-        $promo = $promoRepository->findOneBy(["id" => $id]);
-        $profileSorti = $repoPro->findOneBy(["id" => $num]);
-        if (!$promo || !$profileSorti) {
-            return $this->json("l'id du promo ou du profilSortie  n'existe pas", Response::HTTP_BAD_REQUEST);
-        }
-        $gprApprenant = [];
+        $promo = $promoRepository->find($id);
+        $profil = $repoPro->find($num);
+        if($promo && $profil){
+            $profilSorties = [];
+            foreach ($promo->getGroupes() as $groupe) {
+                foreach ($groupe->getApprenants() as $apprenant){
+                    foreach ($apprenant->getProfilSortis() as $ps) {
 
-        // recuperation des groupe du promo
-        $groupes = $promo->getGroupes();
-        // on parcoure les groupes
-        foreach ($groupes as $groupe) {
-            // $apprenants[] = $groupe->getApprenants();
-            foreach ($groupe->getApprenants() as $apprenant) {
-                if ($apprenant->getProfilSortis()) {
-                    $por = $apprenant->getProfilSortis();
-                    $part = $por[0]->getId();
-                    if ($part === $profileSorti->getId())
-                        $gprApprenant = $apprenant->getProfilSortis();
+                        if($ps->getId() == $num){$profilSorties = $profil;}
+                    }
                 }
             }
+
+            return $this->json($profilSorties, 200);
+        }else{
+            return $this->json("le promo  ou le profil de sorti n'existe pas", Response::HTTP_BAD_REQUEST);
         }
-
-        return $this->json($gprApprenant, Response::HTTP_OK);
-
-
-    }
+     }
     /**
      * @Route("api/admin/profilsorties", name="add_profil_sorti",methods={"POST"})
      */
