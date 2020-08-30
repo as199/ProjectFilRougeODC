@@ -2,13 +2,28 @@
 
 namespace App\Entity;
 
-use App\Repository\BriefRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BriefRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BriefRepository::class)
+ * @ApiResource(
+ *  collectionOperations={
+ *      "get":{
+ *          "path":"formateur/briefs",
+ *          "normalization_context"={"groups":"formateur_brief:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      }
+ *  },
+ *  itemOperations={
+ *      "get"
+ *  }
+ * )
  */
 class Brief
 {
@@ -16,91 +31,109 @@ class Brief
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"formateur_brief:read","formateur_brief_p:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"formateur_brief:read","formateur_brief_p:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $langue;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"formateur_brief:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $nomBrief;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"formateur_brief:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"formateur_brief:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $contexte;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"formateur_brief:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $modalitePedagogique;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"formateur_brief:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $critereEvaluation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"formateur_brief:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $modaliteEvaluation;
 
     /**
      * @ORM\Column(type="blob", nullable=true)
+     * @Groups({"formateur_brief:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $imagePromo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"formateur_brief:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $archiver;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"formateur_brief:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"formateur_brief:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $etat;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="briefs")
+     * @Groups({"formateur_brief:read","formateur_brief_p:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $tags;
 
     /**
      * @ORM\OneToMany(targetEntity=BriefLivrable::class, mappedBy="briefs")
+     * @Groups({"formateur_brief:read","formateur_brief_p:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $briefLivrables;
 
     /**
      * @ORM\ManyToOne(targetEntity=Formateur::class, inversedBy="briefs")
+     * @Groups({"formateur_brief_p:read","formateur_brief_promo:read"})
      */
     private $formateurs;
 
     /**
      * @ORM\ManyToMany(targetEntity=Niveau::class, inversedBy="briefs")
+     * @Groups({"formateur_brief:read","formateur_brief_p:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $niveaux;
 
     /**
      * @ORM\OneToMany(targetEntity=Ressource::class, mappedBy="briefs")
+     * @Groups({"formateur_brief:read","formateur_brief_p:read","formateur_brief_v:read","formateur_brief_promo:read"})
      */
     private $ressources;
 
     /**
      * @ORM\OneToMany(targetEntity=BriefMaPromo::class, mappedBy="briefs")
+     * @Groups({"formateur_brief_p:read"})
      */
     private $briefMaPromos;
 

@@ -15,15 +15,23 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(itemOperations={"PUT","DELETE","GET",
  *  "admin_promo_apprenant_attente_id":{
  *              "path":"admin/promo/apprenants/attente",
- *              "normalization_context"={"groups":"admin_promo_attente:read"}
+ *              "normalization_context"={"groups":"admin_promo_attente:read"},    
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource",
  *         }
  * },
  * collectionOperations={"GET"={"path":"/admin/groups/apprenant",}
  * ,"POST",
  *  "admin_promo_apprenant_attente":{
  *              "path":"admin/promo/apprenants/attente",
- *              "normalization_context"={"groups":"admin_promo_attente:read"}
- *         }
+ *              "normalization_context"={"groups":"admin_promo_attente:read"},
+ *              "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *              "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *         },
+ *     "get":{
+ *          "path":"apprenants/promo/{id}/briefs",
+ *          "normalization_context"={"groups":"admin_promo_briefs:read"}
+ *      }
  * }
  * )
  */
@@ -53,6 +61,7 @@ class Apprenant extends User
 
     /**
      * @ORM\OneToMany(targetEntity=BriefApprenant::class, mappedBy="apprenats")
+     * Groups({"admin_promo_briefs:read","apprenant_brief:read"})
      */
     private $briefApprenants;
 
