@@ -26,9 +26,7 @@ class ApiController extends AbstractController
     public function admingroupeprincipal(GroupeRepository $repo, SerializerInterface $serializer)
     {
         return $this->json($repo->findByStatutGroupe("principal"), Response::HTTP_OK, [], ['groups' => 'admin_promo_principal:read']);
-        //$this->bookPublishingHandler->handle($data);
-
-        //return $data;
+        
     }
 
 
@@ -38,9 +36,7 @@ class ApiController extends AbstractController
     public function admingroupeprincipalid(GroupeRepository $repo, SerializerInterface $serializer, Request $request)
     {
         return $this->json($repo->findByStatutGroupeid("principal", (int)$request->get("id")), Response::HTTP_OK, [], ['groups' => 'admin_promo_principal:read']);
-        //$this->bookPublishingHandler->handle($data);
-
-        //return $data;
+        
     }
 
     /**
@@ -49,9 +45,7 @@ class ApiController extends AbstractController
     public function adminpromoapprenantattente(ApprenantRepository $repo, SerializerInterface $serializer)
     {
         return $this->json($repo->findByStatutGroupe("attente"), Response::HTTP_OK, [], ['groups' => 'admin_promo_attente:read']);
-        //$this->bookPublishingHandler->handle($data);
-
-        //return $data;
+        
     }
 
 
@@ -61,9 +55,7 @@ class ApiController extends AbstractController
     public function adminpromoapprenantattenteid(ApprenantRepository $repo, SerializerInterface $serializer, Request $request)
     {
         return $this->json($repo->findByStatutGroupeid("attente", (int)$request->get("id")), Response::HTTP_OK, [], ['groups' => 'admin_promo_attente:read']);
-        //$this->bookPublishingHandler->handle($data);
-
-        //return $data;
+        
     }
 
     /**
@@ -82,10 +74,7 @@ class ApiController extends AbstractController
                 }
             }
         }
-        // return $this->json($repo->findByStatutGroupeidapprenant((int)$request->get("id1"), (int)$request->get("id2")), Response::HTTP_OK, [], ['groups' => 'admin_promo_principal:read']);
-        //$this->bookPublishingHandler->handle($data);
-
-        //return $data;
+        
     }
 
     /**
@@ -116,31 +105,7 @@ class ApiController extends AbstractController
         }else{
                     return $this->json("le promo  ou le profil de sorti n'existe pas", Response::HTTP_BAD_REQUEST);
             }
-        //return $this->json($repo->formateurpromogroupebrie((int)$request->get("id1"), (int)$request->get("id2")), Response::HTTP_OK, [], ['groups' => 'formateur_brief:read']);
-        //$this->bookPublishingHandler->handle($data);
-
-        //return $data;
-
-    //     public function getAppreantsByProfilSortiesInPromo(ProfilSortiRepository $repoPro, PromoRepository $promoRepository, $id, $num)
-    // {
-    //     $promo = $promoRepository->find($id);
-    //     $profil = $repoPro->find($num);
-    //     if($promo && $profil){
-    //         $profilSorties = [];
-    //         foreach ($promo->getGroupes() as $groupe) {
-    //             foreach ($groupe->getApprenants() as $apprenant){
-    //                 foreach ($apprenant->getProfilSortis() as $ps) {
-
-    //                     if($ps->getId() == $num){$profilSorties = $profil;}
-    //                 }
-    //             }
-    //         }
-
-    //         return $this->json($profilSorties, 200);
-    //     }else{
-    //         return $this->json("le promo  ou le profil de sorti n'existe pas", Response::HTTP_BAD_REQUEST);
-    //     }
-    //  }
+        
     }
 
     /**
@@ -205,7 +170,6 @@ class ApiController extends AbstractController
                 
             }
             
-            //dd($formateurbriefstab);
             return $this->json($formateurbriefstab, Response::HTTP_OK, [], ['groups' => 'formateur_brief_promo:read']);
     }
 
@@ -221,14 +185,8 @@ class ApiController extends AbstractController
                 $formateurbriefstab = $formateurbriefs->getBriefs();
             }
             
-            //dd($formateurbriefstab);
             return $this->json($formateurbriefstab, Response::HTTP_OK, [], ['groups' => 'formateur_brief_promo:read']);
         
-
-        // return $this->json($repo->findByBriefidformateur((int)$request->get("id1"), (int)$request->get("id2")), Response::HTTP_OK, [], ['groups' => 'admin_promo_principal:read']);
-        //$this->bookPublishingHandler->handle($data);
-
-        //return $data;
     }
 
 
@@ -244,14 +202,8 @@ class ApiController extends AbstractController
                 $formateurbriefstab = $formateurbriefs->getBriefs();
             }
             
-            //dd($formateurbriefstab);
             return $this->json($formateurbriefstab, Response::HTTP_OK, [], ['groups' => 'formateur_brief_promo:read']);
         
-
-        // return $this->json($repo->findByBriefidformateur((int)$request->get("id1"), (int)$request->get("id2")), Response::HTTP_OK, [], ['groups' => 'admin_promo_principal:read']);
-        //$this->bookPublishingHandler->handle($data);
-
-        //return $data;
     }
 
     /**
@@ -263,7 +215,7 @@ class ApiController extends AbstractController
         $promo->setNomPromotion($requete->nomPromotion);
         $em = $this->getDoctrine()->getManager();
         $em->persist($promo);
-        //$referentiels = $promo->getReferentiels();
+        
         foreach($promo->getReferenciels() as $ref){
             $ref->setLibelle($requete->libeller);
             $em->persist($ref);
@@ -281,7 +233,7 @@ class ApiController extends AbstractController
     public function putadminpromogroupes(PromoRepository $repo, SerializerInterface $serializer, Request $request){
         $requete =json_decode($request->getContent());
         $promo = $repo->find($request->get("id"));
-       // $promo->setNomPromotion($requete->nomPromotion);
+       
         $em = $this->getDoctrine()->getManager();
         
         foreach($promo->getGroupes() as $groupe){
@@ -368,7 +320,7 @@ class ApiController extends AbstractController
                         $groupe->setPromos($promo);
                         
                     }
-                    //$promo->se$apprenants();
+                    
                     $em->persist($apprenant);
                     $em->flush();
             return $this->json('ajout avec success');
