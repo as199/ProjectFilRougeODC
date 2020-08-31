@@ -60,31 +60,31 @@ class Referenciel
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"referenciel:read", "gecreferenciel:write","grcreferenciel:read"})
-
+     * @Groups({"referenciel:read","livrablepartiel_appr:read", "gecreferenciel:write","grcreferenciel:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups({"referenciel:read","grcreferenciel:read","gecreferenciel:write","referenciel:read_all","apprenant:read","suprime:read","formateur:read","admin:read"})
-
+     *  @Groups({"livrablepartiel_stat:read","referenciel:read","grcreferenciel:read","gecreferenciel:write","referenciel:read_all","apprenant:read","suprime:read","formateur:read","admin:read"})
      */
     private $libelle;
 
     /**
      * @ORM\ManyToMany(targetEntity=Promo::class, inversedBy="referenciels")
+     * @Groups({"livrablepartiel_appr:read",})
      */
     private $promos;
 
     /**
      * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, mappedBy="referentiels")
-     * @Groups({"grcreferenciel:read",})
+     * @Groups({"livrablepartiel_stat:read","grcreferenciel:read","competenceV:read"})
      */
     private $groupeCompetences;
 
     /**
      * @ORM\OneToMany(targetEntity=CompetenceValides::class, mappedBy="referenciels")
+     * @Groups({"livrablepartiel:read","livrablepartiel_appr:read",})
      */
     private $competenceValides;
 

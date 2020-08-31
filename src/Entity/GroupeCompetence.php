@@ -67,7 +67,7 @@ class GroupeCompetence
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"gprecompetence:read","grcreferenciel:read"})
+     * @Groups({"livrablepartiel_appr:read","livrablepartiel_stat:read","gprecompetence:read","grcreferenciel:read"})
      */
     private $id;
 
@@ -79,7 +79,7 @@ class GroupeCompetence
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, mappedBy="groupeCompetences", cascade={"persist"})
-     * @Groups({"gc:read","grcreferenciel:read", "gprecompetence:read"})
+     * @Groups({"competence:read"})
      */
     private $competences;
 

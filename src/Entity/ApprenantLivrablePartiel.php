@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ApprenantLivrablePartielRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ApprenantLivrablePartielRepository::class)
@@ -14,6 +15,7 @@ class ApprenantLivrablePartiel
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"livrablepartiel_comme:read"})
      */
     private $id;
 
@@ -29,16 +31,19 @@ class ApprenantLivrablePartiel
 
     /**
      * @ORM\ManyToOne(targetEntity=LivrablePartiel::class, inversedBy="apprenantLivrablePartiels")
+     * @Groups({"livrablepartiel_comme:read"})
      */
     private $livrablePartiels;
 
     /**
      * @ORM\ManyToOne(targetEntity=Apprenant::class, inversedBy="apprenantLivrablePartiels")
+     * @Groups({"livrablepartiel_comme:read","competence:read"})
      */
     private $apprenants;
 
     /**
      * @ORM\OneToOne(targetEntity=FilDeDiscussion::class, cascade={"persist", "remove"})
+     * @Groups({"livrablepartiel_comme:read"})
      */
     private $filDeDiscussions;
 

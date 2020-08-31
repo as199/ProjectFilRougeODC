@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CompetenceValidesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CompetenceValidesRepository::class)
+ * @ApiResource ()
  */
 class CompetenceValides
 {
@@ -14,26 +17,32 @@ class CompetenceValides
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *  @Groups ({"livrablepartiel:read","livrablepartiel_stat:read"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Competence::class, inversedBy="competenceValides")
+     *  @Groups ({"livrablepartiel:read","livrablepartiel_stat:read",})
      */
     private $competences;
 
     /**
      * @ORM\ManyToOne(targetEntity=Referenciel::class, inversedBy="competenceValides")
+     * @Groups({"livrablepartiel_stat:read",})
+     *
      */
     private $referenciels;
 
     /**
      * @ORM\ManyToOne(targetEntity=Apprenant::class, inversedBy="competenceValides")
+     *  @Groups ({"competence:read","livrablepartiel:read","livrablepartiel_stat:read"})
      */
     private $apprenants;
 
     /**
      * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="competenceValides")
+     * @Groups({"competenceV:read"})
      */
     private $promos;
 

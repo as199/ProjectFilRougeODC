@@ -53,29 +53,31 @@ class Competence
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"competence:read", "gprecompetence:read", "gc:read"})
+     * @Groups({"competences:read","livrablepartiel_appr:read","livrablepartiel_stat:read","competence:read", "gprecompetence:read", "gc:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"competence:read", "gprecompetence:read", "gc:read"})
+     * @Groups({"livrablepartiel_stat:read","competence:read", "gprecompetence:read", "gc:read"})
      */
     private $libelle;
 
     /**
      * @ORM\ManyToMany(targetEntity=GroupeCompetence::class, inversedBy="competences", cascade={"persist"})
+     *
      */
     private $groupeCompetences;
 
     /**
      * @ORM\ManyToMany(targetEntity=Niveau::class, mappedBy="competences", cascade={"persist"})
-     * @Groups({"competence:read"})
+     * @Groups({"competences:read",})
      */
     private $niveaux;
 
     /**
      * @ORM\OneToMany(targetEntity=CompetenceValides::class, mappedBy="competences")
+     * @Groups({"livrablepartiel_appr:read",})
      */
     private $competenceValides;
 

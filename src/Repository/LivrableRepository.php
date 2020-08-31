@@ -18,6 +18,18 @@ class LivrableRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Livrable::class);
     }
+    public function findByLivId($id)
+    {
+        return $this->createQueryBuilder('l')
+            ->andWhere('l.id = :val')
+            ->andWhere('l = :val')
+            ->setParameter('val', $value)
+            ->orderBy('l.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     // /**
     //  * @return Livrable[] Returns an array of Livrable objects

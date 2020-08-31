@@ -47,7 +47,16 @@ class PromoRepository extends ServiceEntityRepository
         ;
     }
     */
-    
+
+    public  function findByPrpmoid($id_a, $id_b){
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :val')
+            ->andWhere('p.referenciels = :valu')
+            ->setParameter('val', $id_a)
+            ->setParameter('valu', $id_b)
+            ->getQuery()
+            ->getResult();
+    }
 
     public function findByStatutGroupeidapprenant($id1, $id2)
     {

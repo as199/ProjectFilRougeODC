@@ -31,7 +31,7 @@ class Apprenant extends User
 {
     /**
      * @ORM\ManyToMany(targetEntity=Groupe::class, mappedBy="apprenants")
-     * @Groups({"admin_promo_attente:read"})
+     * @Groups({"admin_promo_attente:read",})
      */
     private $groupes;
 
@@ -43,11 +43,13 @@ class Apprenant extends User
 
     /**
      * @ORM\OneToMany(targetEntity=ApprenantLivrablePartiel::class, mappedBy="apprenants")
+     * @Groups({"livrablepartiel_appr:read",})
      */
     private $apprenantLivrablePartiels;
 
     /**
      * @ORM\OneToMany(targetEntity=CompetenceValides::class, mappedBy="apprenants")
+     * @Groups({"livrablepartiel:read",})
      */
     private $competenceValides;
 
