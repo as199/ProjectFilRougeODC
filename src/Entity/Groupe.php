@@ -91,8 +91,8 @@ class Groupe
 
     /**
      * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes")
-
-
+      *@Groups({"chat:read","admin_profilsortie:read","admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read","apprenant_brief:read","admin_promo_groupes_apprenant:read"})
+       *
      */
     private $apprenants;
 
