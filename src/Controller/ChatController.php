@@ -19,13 +19,14 @@ class ChatController extends AbstractController
     /**
      * @Route("users/promo/{id}/apprenant/{num}/chats", name="affiche_chat_apprenant", methods={"GET"})
      */
-    public function recuperationCommentaire(ApprenantRepository $apprenantRepository,ChatRepository $repoChat,PromoRepository $promoRepository,$id,$num){
+    public function recuperationCommentaire(ApprenantRepository $apprenantRepository, ChatRepository $repoChat, PromoRepository $promoRepository, $id, $num)
+    {
         $promo = $promoRepository->find($id);
         $apprenant = $apprenantRepository->find($num);
         if (!$promo || !$apprenant) {
             return $this->json("l'id du promo ou de l'apprenant  n'existe pas", Response::HTTP_BAD_REQUEST);
-        }else{
-            $chats[] = $repoChat->findChatsBy($id,$num);
+        } else {
+            $chats[] = $repoChat->findChatsBy($id, $num);
             //dd($chats);
         }
 
@@ -35,25 +36,25 @@ class ChatController extends AbstractController
     /**
      * @Route("users/promo/{id}/apprenant/{num}/chats", name="add_chat",methods={"POST"})
      */
-    public function addChat(Request $request,SerializerInterface $serializer,UserRepository $userRepository,PromoRepository $promoRepository,$id,$num){
+    public function addChat(Request $request, SerializerInterface $serializer, UserRepository $userRepository, PromoRepository $promoRepository, $id, $num)
+    {
 
-        $donnes = json_decode($request->getContent(),true);
+        $donnes = json_decode($request->getContent(), true);
 
         $em = $this->getDoctrine()->getManager();
         if ($promoRepository->find($id)) {
             $user = $userRepository->find($num);
-            if($user->getProfil()->getLibelle() == "APPRENANT"){
+            if ($user->getProfil()->getLibelle() == "APPRENANT") {
                 $chat = $serializer->denormalize($donnes, Chat::class);
 
                 $em->persist($chat);
                 $em->flush();
-                return new JsonResponse("success",Response::HTTP_CREATED,[],true);
-            }else{
+                return new JsonResponse("success", Response::HTTP_CREATED, [], true);
+            } else {
                 return new JsonResponse("identifiant n'existe pas dans la promo");
             }
-        }else{
+        } else {
             return new JsonResponse("la promo n'existe pas");
         }
-
     }
 }
