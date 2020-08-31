@@ -11,7 +11,45 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ProfilSortiRepository::class)
- * @ApiResource()
+ * @ApiResource(
+ * collectionOperations={"POST":{
+*           "path":"api/admin/profilsorties",
+ *             "controller": "App\Controller\ProfilSortiController::class",
+ *           "normalization_context"={"groups":"admin_profilsortie:read"},
+ *              "route_name"="add_profil_sorti",
+ *     },
+ *
+ *     "GET3":{
+ *          "method":"GET",
+ *           "path":"api/admin/promo/{id}/profilsorties",
+ *             "controller": "App\Controller\ProfilSortiController::class",
+ *           "normalization_context"={"groups":"admin_profilsortie:read"},
+ *             "route_name"="affiche_apprenat_profil",
+ *     },
+ * "GET":{
+*
+ *           "path":"admin/profilsorties",
+ *           "normalization_context"={"groups":"admin_profilsortie:read"},
+ *     }
+ *     },
+ * itemOperations={
+ *     "GET1":{
+ *          "method":"GET",
+ *           "path":"admin/profilsorties/{id}",
+ *           "normalization_context"={"groups":"admin_profilsortie:read"},
+ *     },"GET2":{
+ *          "method":"GET",
+ *           "path":"api/admin/promo/{id}/profilsortie/{num}",
+ *             "controller":" App\Controller\ProfilSortiController::class",
+ *           "normalization_context"={"groups":"admin_profilsortie:read"},
+ *             "route_name"="get_apprenat_profil",
+ *     },
+ *
+ *     "PUT":{
+ *           "path":"admin/profilsortie/{id}",
+ *     }
+ *  }
+ * )
  */
 class ProfilSorti
 {
@@ -19,24 +57,26 @@ class ProfilSorti
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"groups":"admin_profilsortie:read","admin_id_profilsortie:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"groups":"admin_promo_attente:read"})
+     * @Groups({"admin_put_profilsortie:read","groups":"admin_promo_attente:read","admin_profilsortie:read"})
      */
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="profilSortis")
+     * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="profilSortis")
+     * @Groups({"admin_profilsortie:read"})
      */
-    private $users;
+    private $apprenants;
 
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->apprenants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,26 +97,26 @@ class ProfilSorti
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|Apprenant[]
      */
-    public function getUsers(): Collection
+    public function getApprenants(): Collection
     {
-        return $this->users;
+        return $this->apprenants;
     }
 
-    public function addUser(User $user): self
+    public function addApprenant(Apprenant $apprenant): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
+        if (!$this->apprenants->contains($apprenant)) {
+            $this->apprenants[] = $apprenant;
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeUser(Apprenant $apprenant): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
+        if ($this->apprenants->contains($apprenant)) {
+            $this->apprenants->removeElement($apprenant);
         }
 
         return $this;

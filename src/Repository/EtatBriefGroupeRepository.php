@@ -19,6 +19,7 @@ class EtatBriefGroupeRepository extends ServiceEntityRepository
         parent::__construct($registry, EtatBriefGroupe::class);
     }
 
+
     // /**
     //  * @return EtatBriefGroupe[] Returns an array of EtatBriefGroupe objects
     //  */

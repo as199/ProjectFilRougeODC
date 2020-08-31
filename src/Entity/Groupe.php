@@ -75,7 +75,9 @@ class Groupe
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+
      *@Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read","admin_promo_attente:read","formateur_brief:read","formateur_brief_p:read","admin_promo_groupes_apprenant:read","admin_promo_groupe:read","admin_groupe_id:read"})
+
 
      */
     private $id;
@@ -89,7 +91,7 @@ class Groupe
 
     /**
      * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes")
-    *@Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read","apprenant_brief:read","admin_promo_groupes_apprenant:read"})
+
 
      */
     private $apprenants;

@@ -113,14 +113,13 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","formateur_brief:read","formateur_brief_p:read","admin_promo_groupes_apprenant:read","admin_promo_formateur:read","admin_promo:read","admin_promo_principal:read","admin_groupe:read"})
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"apprenant:read"})
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","admin_promo:read","admin_promo_formateur:read","formateur_brief:read","admin_promo_groupes_apprenant:read","admin_promo_formateur:read","admin_promo:read","admin_promo_principal:read","admin_groupe:read"})
+
      */
     private $username;
 
@@ -136,14 +135,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","formateur_brief:read","admin_promo_groupes_apprenant:read","admin_promo_formateur:read","admin_promo:read","admin_promo_principal:read","admin_groupe:read"})
+
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","formateur_brief:read","admin_promo_groupes_apprenant:read","admin_promo_formateur:read","admin_promo:read","admin_promo_principal:read","admin_groupe:read"})
-     */
+       */
     private $nom;
 
     /**
@@ -177,20 +175,16 @@ class User implements UserInterface
      */
     private $profil;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=ProfilSorti::class, mappedBy="users")
-     * 
-     */
-    private $profilSortis;
 
     /**
      * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="user")
+     *  @Groups({"chat:read"})
      */
     private $chats;
 
     public function __construct()
     {
-        $this->profilSortis = new ArrayCollection();
+
         $this->chats = new ArrayCollection();
     }
 
@@ -351,33 +345,7 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|ProfilSorti[]
-     */
-    public function getProfilSortis(): Collection
-    {
-        return $this->profilSortis;
-    }
 
-    public function addProfilSorti(ProfilSorti $profilSorti): self
-    {
-        if (!$this->profilSortis->contains($profilSorti)) {
-            $this->profilSortis[] = $profilSorti;
-            $profilSorti->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProfilSorti(ProfilSorti $profilSorti): self
-    {
-        if ($this->profilSortis->contains($profilSorti)) {
-            $this->profilSortis->removeElement($profilSorti);
-            $profilSorti->removeUser($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Chat[]

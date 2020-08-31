@@ -19,6 +19,26 @@ class GroupeRepository extends ServiceEntityRepository
         parent::__construct($registry, Groupe::class);
     }
 
+    public function recupApprenant($value)
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.promos = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function recupid($value)
+    {
+        return $this->createQueryBuilder('g')
+            ->select('g.apprenants')
+            ->andWhere('g.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Groupe[] Returns an array of Groupe objects
     //  */
