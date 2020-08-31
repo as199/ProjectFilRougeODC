@@ -59,12 +59,25 @@ class PromoRepository extends ServiceEntityRepository
     */
     
 
-    public function findByStatutGroupeidapprenant($id1, $id2)
+    public function formateurpromogroupebrie($id1, $id2)
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.id = :id1')
             ->setParameter('id1', $id1)
             ->innerJoin('p.groupes', 'g')
+            ->andWhere('g.id = :id2')
+            ->setParameter('id2', $id2)
+            
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByBriefidformateur($id1, $id2)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :id1')
+            ->setParameter('id1', $id1)
+            ->innerJoin('p.briefs', 'g')
             ->andWhere('g.id = :id2')
             ->setParameter('id2', $id2)
             

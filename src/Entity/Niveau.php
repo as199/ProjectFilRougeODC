@@ -26,18 +26,19 @@ class Niveau
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"competence:read"})
+     * @Groups({"competence:read","formateur_brief:read","formateur_brief_v:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"competence:read"})
+     * @Groups({"competence:read","formateur_brief:read"})
      */
     private $libelle;
 
     /**
      * @ORM\ManyToMany(targetEntity=Competence::class, inversedBy="niveaux", cascade={"persist"})
+     * @Groups({"formateur_brief:read","formateur_brief_v:read"})
      */
     private $competences;
 

@@ -113,13 +113,13 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"chat:read","admin_profilsortie:read","admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"admin_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","admin_promo:read","admin_promo_formateur:read"})
+
      */
     private $username;
 
@@ -135,44 +135,43 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"chat:read""admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"chat:read","admin_id_profilsortie:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
-     */
+       */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","formateur_brief:read","admin_promo_formateur:read","admin_promo:read","admin_promo_principal:read"})
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","formateur_brief:read","admin_promo_formateur:read","admin_promo:read","admin_promo_principal:read","admin_groupe:read"})
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="blob", nullable=true)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_formateur:read","admin_promo:read","admin_promo_principal:read","admin_groupe:read"})
      */
     private $photo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","admin_promo_formateur:read","admin_promo:read","admin_promo_principal:read","admin_groupe:read"})
      */
     private $email;
 
     /**
      * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","admin_promo_formateur:read","admin_promo_principal:read","admin_groupe:read"})
      */
     private $profil;
 

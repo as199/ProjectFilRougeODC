@@ -60,7 +60,7 @@ class Tag
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"tag:read"})
+     * @Groups({"tag:read","formateur_brief:read"})
      */
     private $libelle;
 
