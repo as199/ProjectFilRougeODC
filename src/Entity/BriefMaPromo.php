@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\BriefMaPromoRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BriefMaPromoRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BriefMaPromoRepository::class)
+ * 
  */
 class BriefMaPromo
 {
@@ -16,6 +19,7 @@ class BriefMaPromo
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * Groups({"formateur_brief:read","formateur_brief_p:read"})
      */
     private $id;
 
@@ -26,11 +30,13 @@ class BriefMaPromo
 
     /**
      * @ORM\ManyToOne(targetEntity=Brief::class, inversedBy="briefMaPromos")
+     * 
      */
     private $briefs;
 
     /**
      * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="briefMaPromos")
+     * Groups({"formateur_brief_p:read"})
      */
     private $promos;
 

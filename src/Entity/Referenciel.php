@@ -60,20 +60,21 @@ class Referenciel
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"referenciel:read", "gecreferenciel:write","grcreferenciel:read"})
+     * @Groups({"referenciel:read", "gecreferenciel:write","grcreferenciel:read","admin_promo_referenciel:read"})
 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Groups({"referenciel:read","grcreferenciel:read","gecreferenciel:write","referenciel:read_all","apprenant:read","suprime:read","formateur:read","admin:read"})
+     *  @Groups({"referenciel:read","grcreferenciel:read","gecreferenciel:write","referenciel:read_all","apprenant:read","suprime:read","formateur:read","admin:read","admin_promo_referenciel:read"})
 
      */
     private $libelle;
 
     /**
      * @ORM\ManyToMany(targetEntity=Promo::class, inversedBy="referenciels")
+     * 
      */
     private $promos;
 

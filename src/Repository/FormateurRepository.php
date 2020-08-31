@@ -47,4 +47,18 @@ class FormateurRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findByStatutGroupeid($value, $id)
+    {
+        return $this->createQueryBuilder('p')
+            
+            ->innerJoin('p.briefs', 'g')
+            ->andWhere('g.etat = :val')
+            ->setParameter('val', $value)
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+            
+            ->getQuery()
+            ->getResult();
+    }
 }

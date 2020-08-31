@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\RessourceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RessourceRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RessourceRepository::class)
@@ -14,26 +15,31 @@ class Ressource
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"formateur_brief:read","formateur_brief_p:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"formateur_brief:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"formateur_brief:read"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"formateur_brief:read"})
      */
     private $pieceJointe;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"formateur_brief:read"})
      */
     private $url;
 

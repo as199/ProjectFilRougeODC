@@ -16,6 +16,7 @@ class BriefApprenant
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * Groups({"apprenant_brief:read"})
      */
     private $id;
 

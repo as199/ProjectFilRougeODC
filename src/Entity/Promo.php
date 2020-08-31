@@ -16,46 +16,112 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *  "get":{
  *      "path":"admin/promo",
  *      "normalization_context"={"groups":"admin_promo:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
  *  },
  *  
  *  "post":{
  *      "path":"admin/promo",
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
  *  }
  * },
  * itemOperations={
  *  "get":{
  *      "path":"admin/promo/{id}",
  *      "normalization_context"={"groups":"admin_promo:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
  *   },
  *  "get1":{
  *      "method":"get",
  *      "path":"admin/promo/{id}/groupes",
  *      "normalization_context"={"groups":"admin_promo_groupe:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
  *  },
  * 
  *   "get2":{
  *      "method":"get",
  *      "path":"admin/promo/{id}/formateurs",
  *      "normalization_context"={"groups":"admin_promo_formateur:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
  *  },
  * "get3":{
  *      "method":"get",
  *      "path":"admin/promo/{id}/apprenants",
  *      "normalization_context"={"groups":"admin_promo_apprenant:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
  *  },
  *  "get4":{
  *      "method":"get",
  *      "path":"admin/promo/{id}/referentiels",
  *      "normalization_context"={"groups":"admin_promo_referenciel:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
  *  },
+ *  "get5":{
+ *          "path":"formateur/promo/{id}/briefs",
+ *          "normalization_context"={"groups":"formateur_brief_promo:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM') or is_granted('ROLE_APPRENANT'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
+ *  "get6":{
+ *          "method":"get",
+ *          "path":"apprenant/promo/{id}/briefs",
+ *          "normalization_context"={"groups":"apprenant_brief:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM') or is_granted('ROLE_APPRENANT'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
+ *      "formateur_promo_groupe_brief":{
+ *          "path":"formateurs/promo/{id}/groupe/{id}/briefs",
+ *          "normalization_context"={"groups":"formateur_brief_p:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
  *  
- *  "admin_promo_principal_apprenant":{
+ *  "admin_promo_groupes_apprenant":{
  *      "path":"api/admin/promo/{id}/groupes/{id}/apprenants",
- *      "normalization_context"={"groups":"admin_promo_principal:read"},
+ *      "normalization_context"={"groups":"admin_promo_groupes_apprenant:read"},
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
  *      
  *  },
+ *  "formateur_promo_brief":{
+ *          "path":"formateurs/promo/{id}/briefs/{id}",
+ *          "normalization_context"={"groups":"formateur_brief:read"},
+ *      },
+ *  "admin_promo_id_referentiel":{
+ *          "method":"put",
+ *          "path":"admin/promo/{id}/referentiels",
+ *          "normalization_context"={"groups":"formateur_brief:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') or is_granted('ROLE_CM'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
+ *  "put_admin_promo_groupes":{
+ *          "method":"put",
+ *          "path":"admin/promo/{id}/groupes/{id1}",
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
+ *  "put_admin_promo_formateurs":{
+ *          "method":"put",
+ *          "path":"admin/promo/{id}/formateurs",
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *           "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
+ *      "put_admin_promo_apprenant":{
+ *          "method":"put",
+ *          "path":"admin/promo/{id}/apprenants",
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *      },
  *  "put":{
  *      "path":"admin/promo/{id}",
+ *      "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR'))",
+ *      "access_control_message"="Vous n'avez pas access à cette Ressource",
  *  }
  * }
  
@@ -67,13 +133,13 @@ class Promo
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-    * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+    * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read","formateur_brief:read","formateur_brief_p:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-    * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+    * @Groups({"admin_promo:read","admin_promo_formateur:read","admin_promo_referenciel:read","admin_promo_groupe:read","admin_groupe:read","admin_promo_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read","formateur_brief:read"})
      */
     private $nomPromotion;
 
@@ -91,29 +157,31 @@ class Promo
 
     /**
      * @ORM\ManyToMany(targetEntity=Formateur::class, inversedBy="promos")
-    * @Groups({"admin_promo:read","admin_promo_formateur:read"})
+    * @Groups({"admin_promo:read","admin_promo_formateur:read","formateur_brief1:read","formateur_brief:read"})
      */
     private $formateurs;
 
     /**
      * @ORM\OneToMany(targetEntity=Groupe::class, mappedBy="promos",cascade={"persist"})
-    * @Groups({"admin_promo:read","admin_promo_groupe:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+    * @Groups({"admin_promo:read","admin_promo_groupe:read","admin_promo_apprenant:read","admin_promo_principal:read","apprenant_brief:read","formateur_brief:read"})
      */
     private $groupes;
 
     /**
      * @ORM\ManyToMany(targetEntity=Referenciel::class, mappedBy="promos")
-    *  @Groups({"admin_promo:read","admin_promo_referenciel:read","admin_promo_attente:read"})
+    *  @Groups({"admin_promo:read","admin_promo_referenciel:read","admin_promo_attente:read","formateur_brief_p:read"})
      */
     private $referenciels;
 
     /**
      * @ORM\OneToMany(targetEntity=CompetenceValides::class, mappedBy="promos")
+     * Groups({"formateur_brief:read"})
      */
     private $competenceValides;
 
     /**
      * @ORM\OneToMany(targetEntity=BriefMaPromo::class, mappedBy="promos")
+     * Groups({"formateur_brief:read"})
      */
     private $briefMaPromos;
 

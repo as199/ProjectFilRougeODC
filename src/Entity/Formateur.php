@@ -3,20 +3,47 @@
 namespace App\Entity;
 
 use App\Entity\User;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\FormateurRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=FormateurRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *  collectionOperations={
+ *      "get"
+ *  },
+ *  itemOperations={
+ *      "get",
+ *      
+ *      
+ *      "formateur_brief_brouillon":{
+ *          "path":"formateurs/{id}/briefs/brouillons",
+ *          "normalization_context"={"groups":"formateur_brief:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') )",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *          
+ *      },
+ *      "formateur_brief_valide":{
+ *          "path":"formateurs/{id}/briefs/valide",
+ *          "normalization_context"={"groups":"formateur_brief_v:read"},
+ *          "access_control"="(is_granted('ROLE_ADMIN') or is_granted('ROLE_FORMATEUR') )",
+ *          "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *          
+ *      },
+ *      
+ *  }
+ * )
  */
 class Formateur extends User
 {
     /**
      * @ORM\ManyToMany(targetEntity=Groupe::class, mappedBy="formateurs")
+     * Groups({"formateurpromogroupebrief:read"})
+     * 
      */
     private $groupes;
 
@@ -27,6 +54,8 @@ class Formateur extends User
 
     /**
      * @ORM\OneToMany(targetEntity=Brief::class, mappedBy="formateurs")
+     * Groups({"formateur_brief_v:read"})
+     
      */
     private $briefs;
 
