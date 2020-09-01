@@ -18,20 +18,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "normalization_context"={"groups":"admin_promo_attente:read"}
  *         }
  * },
- * collectionOperations={"GET"={"path":"/admin/groups/apprenant",}
- * ,"POST",
+ * collectionOperations={
+ * "GET"={"path":"/admin/groups/apprenant"},
+ * "POST",
  *  "admin_promo_apprenant_attente":{
  *              "path":"admin/promo/apprenants/attente",
  *              "normalization_context"={"groups":"admin_promo_attente:read"}
- *         }
+ *         },
  * }
  * )
  */
 class Apprenant extends User
 {
     /**
-     * @ORM\ManyToMany(targetEntity=Groupe::class, mappedBy="apprenants")
-     * @Groups({"admin_promo_attente:read"})
+     * @ORM\ManyToMany(targetEntity=Groupe::class, mappedBy="apprenants", cascade={"persist"})
+     * @Groups({"getbpa:read","admin_promo_attente:read", "postlivrables:read"})
      */
     private $groupes;
 
@@ -56,6 +57,12 @@ class Apprenant extends User
      */
     private $briefApprenants;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LivrableAttenduApprenant::class, mappedBy="apprenants", cascade={"persist"})
+     * @Groups({"postlivrables:read"})
+     */
+    private $livrableAttenduApprenants;
+
     public function __construct()
     {
         parent::__construct();
@@ -63,6 +70,7 @@ class Apprenant extends User
         $this->apprenantLivrablePartiels = new ArrayCollection();
         $this->competenceValides = new ArrayCollection();
         $this->briefApprenants = new ArrayCollection();
+        $this->livrableAttenduApprenants = new ArrayCollection();
     }
 
     /**
@@ -192,6 +200,37 @@ class Apprenant extends User
             // set the owning side to null (unless already changed)
             if ($briefApprenant->getApprenats() === $this) {
                 $briefApprenant->setApprenats(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LivrableAttenduApprenant[]
+     */
+    public function getLivrableAttenduApprenants(): Collection
+    {
+        return $this->livrableAttenduApprenants;
+    }
+
+    public function addLivrableAttenduApprenant(LivrableAttenduApprenant $livrableAttenduApprenant): self
+    {
+        if (!$this->livrableAttenduApprenants->contains($livrableAttenduApprenant)) {
+            $this->livrableAttenduApprenants[] = $livrableAttenduApprenant;
+            $livrableAttenduApprenant->setApprenants($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivrableAttenduApprenant(LivrableAttenduApprenant $livrableAttenduApprenant): self
+    {
+        if ($this->livrableAttenduApprenants->contains($livrableAttenduApprenant)) {
+            $this->livrableAttenduApprenants->removeElement($livrableAttenduApprenant);
+            // set the owning side to null (unless already changed)
+            if ($livrableAttenduApprenant->getApprenants() === $this) {
+                $livrableAttenduApprenant->setApprenants(null);
             }
         }
 

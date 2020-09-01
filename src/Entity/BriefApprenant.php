@@ -34,11 +34,16 @@ class BriefApprenant
      */
     private $briefMaPromo;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BriefApprenant::class, mappedBy="briefs")
+     */
+    private $briefApprenants;
+
 
 
     public function __construct()
     {
-
+        $this->briefApprenants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,6 +83,38 @@ class BriefApprenant
     public function setBriefMaPromo(?BriefMaPromo $briefMaPromo): self
     {
         $this->briefMaPromo = $briefMaPromo;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getBriefApprenants(): Collection
+    {
+        return $this->briefApprenants;
+    }
+
+    public function addBriefApprenant(self $briefApprenant): self
+    {
+        if (!$this->briefApprenants->contains($briefApprenant)) {
+            $this->briefApprenants[] = $briefApprenant;
+            $briefApprenant->setBriefs($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBriefApprenant(self $briefApprenant): self
+    {
+        if ($this->briefApprenants->contains($briefApprenant)) {
+            $this->briefApprenants->removeElement($briefApprenant);
+            // set the owning side to null (unless already changed)
+            if ($briefApprenant->getBriefs() === $this) {
+                $briefApprenant->setBriefs(null);
+            }
+        }
 
         return $this;
     }

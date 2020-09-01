@@ -2,13 +2,64 @@
 
 namespace App\Entity;
 
-use App\Repository\BriefRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BriefRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BriefRepository::class)
+ * @ApiResource(
+ * collectionOperations={
+ *  "post_brief_formateur":{
+ *   "method": "POST",
+ *   "path": "/formateurs/briefs",
+ *   "access_control"="(is_granted('ROLE_FORMATEUR'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *   "route_name"="ajouter_brief"
+ *  },
+ * "dup_brief_promo_formateurs"={
+ *   "method"= "POST",
+ *   "path"= "api/formateurs/briefs/{id}",
+ *   "access_control"="(is_granted('ROLE_FORMATEUR'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *   "route_name"="dup_brief"
+ *  },
+ * },
+ * itemOperations={
+ * "get_brief_promo_formateurs"={
+ *   "method"= "GET",
+ *   "path"= "/api/formateurs/promo/{id}/brief/{idb}",
+ *   "access_control"="(is_granted('ROLE_FORMATEUR'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *   "route_name"="lister_briefs_formateur"
+ *  
+ * },
+ * "get_brief_promo_apprenant"={
+ *   "method"= "GET",
+ *   "path"= "/apprenants/promos/{idp}/briefs/{idb}",
+ *   "access_control"="(is_granted('ROLE_FORMATEUR') or is_granted('ROLE_APPRENANT'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *   "route_name"="afficher_brief_promo_apprenant"
+ *  },
+ *  "put_brief_promo_formateurs":{
+ *   "method": "PUT",
+ *   "path": "/formateurs/promo/{id}/brief/{idb}",
+ *   "access_control"="(is_granted('ROLE_FORMATEUR'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *   "route_name"="update_brief"
+ *  },
+ * "get_assignation_brief_promo_formateurs":{
+ *   "method": "PUT",
+ *   "path": "/formateurs/promo/{id}/brief/{idb}/assignation",
+ *   "access_control"="(is_granted('ROLE_FORMATEUR'))",
+ *   "access_control_message"="Vous n'avez pas access à cette Ressource",
+ *   "route_name"="get_assignation_briefs_formateur"
+ * },
+ * }
+ * )
  */
 class Brief
 {
@@ -16,41 +67,49 @@ class Brief
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"postbrief:read", "getbpa:read", "putbpf:read", "getbpf:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"postbrief:read", "getbpa:read", "getbpf:read"})
      */
     private $langue;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"postbrief:read", "getbpa:read",  "putbpf:read", "getbpf:read"})
      */
     private $nomBrief;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"postbrief:read", "getbpa:read", "getbpf:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"postbrief:read", "getbpa:read", "getbpf:read" })
      */
     private $contexte;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"postbrief:read", "getbpa:read", "getbpf:read"})
      */
     private $modalitePedagogique;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"postbrief:read", "getbpa:read",})
      */
     private $critereEvaluation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"postbrief:read", "getbpa:read", })
      */
     private $modaliteEvaluation;
 
@@ -61,16 +120,19 @@ class Brief
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"postbrief:read", "getbpa:read", "getbpf:read"})
      */
     private $archiver;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"postbrief:read", "getbpa:read", "getbpf:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"postbrief:read", "getbpa:read", "getbpf:read"})
      */
     private $etat;
 
@@ -91,23 +153,31 @@ class Brief
 
     /**
      * @ORM\ManyToMany(targetEntity=Niveau::class, inversedBy="briefs")
+     * @Groups({"getbpf:read"})
      */
     private $niveaux;
 
     /**
      * @ORM\OneToMany(targetEntity=Ressource::class, mappedBy="briefs")
+     * @Groups({"getbpf:read"})
      */
     private $ressources;
 
     /**
-     * @ORM\OneToMany(targetEntity=BriefMaPromo::class, mappedBy="briefs")
+     * @ORM\OneToMany(targetEntity=BriefMaPromo::class, mappedBy="briefs", cascade={"persist"})
      */
     private $briefMaPromos;
 
     /**
-     * @ORM\OneToMany(targetEntity=EtatBriefGroupe::class, mappedBy="briefs")
+     * @ORM\OneToMany(targetEntity=EtatBriefGroupe::class, mappedBy="briefs", cascade={"persist"})
      */
     private $etatBriefGroupes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=LivrableAttendu::class, mappedBy="briefs")
+     * @Groups({"getbpf:read"})
+     */
+    private $livrableAttendus;
 
     public function __construct()
     {
@@ -117,6 +187,7 @@ class Brief
         $this->ressources = new ArrayCollection();
         $this->briefMaPromos = new ArrayCollection();
         $this->etatBriefGroupes = new ArrayCollection();
+        $this->livrableAttendus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -439,6 +510,34 @@ class Brief
             if ($etatBriefGroupe->getBriefs() === $this) {
                 $etatBriefGroupe->setBriefs(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LivrableAttendu[]
+     */
+    public function getLivrableAttendus(): Collection
+    {
+        return $this->livrableAttendus;
+    }
+
+    public function addLivrableAttendu(LivrableAttendu $livrableAttendu): self
+    {
+        if (!$this->livrableAttendus->contains($livrableAttendu)) {
+            $this->livrableAttendus[] = $livrableAttendu;
+            $livrableAttendu->addBrief($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivrableAttendu(LivrableAttendu $livrableAttendu): self
+    {
+        if ($this->livrableAttendus->contains($livrableAttendu)) {
+            $this->livrableAttendus->removeElement($livrableAttendu);
+            $livrableAttendu->removeBrief($this);
         }
 
         return $this;

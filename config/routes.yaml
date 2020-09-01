@@ -1,9 +1,16 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+dup_brief:
+    path: /api/formateur/briefs/{id}
+    controller: App\Controller\BriefController::duplication_brief_par_formateurs
+    methods: [POST]
+
+ajouter_brief:
+    path: /api/formateurs/briefs
+    controller: App\Controller\BriefController::add_brief_par_formateurs
+    methods: [POST]
+
 login_check:
   path: /login_check
   methods: [POST]
 
 api_login_check:
-  path: /api/login_check
+  path: /api/login_check 

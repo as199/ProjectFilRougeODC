@@ -2,13 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\LivrableRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LivrableRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=LivrableRepository::class)
+ * @ApiResource(
+ * collectionOperations={
+ * },
+ * itemOperations={
+ * 
+ * }
+ * )
  */
 class Livrable
 {
@@ -16,16 +25,19 @@ class Livrable
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"postlivrables:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"postlivrables:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"postlivrables:read"})
      */
     private $description;
 

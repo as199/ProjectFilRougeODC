@@ -23,12 +23,12 @@ class EtatBriefGroupe
     private $statut;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Brief::class, inversedBy="etatBriefGroupes")
+     * @ORM\ManyToOne(targetEntity=Brief::class, inversedBy="etatBriefGroupes", cascade={"persist"})
      */
     private $briefs;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="etatBriefGroupes")
+     * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="etatBriefGroupes", cascade={"persist"})
      */
     private $groupes;
 

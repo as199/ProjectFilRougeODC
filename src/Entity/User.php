@@ -113,14 +113,14 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"postlivrables:read","getbpa:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"apprenant:read"})
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","admin_promo:read","admin_promo_formateur:read"})
+     * @Groups({"postlivrables:read","getbpa:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read","admin_promo:read","admin_promo_formateur:read"})
      */
     private $username;
 
@@ -136,37 +136,37 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"postlivrables:read","getbpa:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"postlivrables:read","getbpa:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"postlivrables:read","getbpa:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"postlivrables:read","getbpa:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="blob", nullable=true)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read"})
+     * @Groups({"getbpa:read","apprenant:read","formateur:read","admin:read","cm:read"})
      */
     private $photo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
+     * @Groups({"postlivrables:read","getbpa:read","apprenant:read","formateur:read","admin:read","cm:read","admin_promo_attente:read"})
      */
     private $email;
 

@@ -53,13 +53,13 @@ class Competence
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"competence:read", "gprecompetence:read", "gc:read"})
+     * @Groups({"competence:read", "gprecompetence:read", "gc:read", "getbpf:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"competence:read", "gprecompetence:read", "gc:read"})
+     * @Groups({"competence:read", "gprecompetence:read", "gc:read", "getbpf:read", "getbpf:read"})
      */
     private $libelle;
 

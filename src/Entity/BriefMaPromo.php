@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\BriefMaPromoRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BriefMaPromoRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BriefMaPromoRepository::class)
@@ -16,6 +17,7 @@ class BriefMaPromo
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"getbpa:read"})
      */
     private $id;
 
@@ -25,12 +27,13 @@ class BriefMaPromo
     private $livrablePartiels;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Brief::class, inversedBy="briefMaPromos")
+     * @ORM\ManyToOne(targetEntity=Brief::class, inversedBy="briefMaPromos", cascade={"persist"})
+     * @Groups({"getbpa:read"})
      */
     private $briefs;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="briefMaPromos")
+     * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="briefMaPromos", cascade={"persist"})
      */
     private $promos;
 

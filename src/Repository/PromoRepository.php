@@ -19,6 +19,26 @@ class PromoRepository extends ServiceEntityRepository
         parent::__construct($registry, Promo::class);
     }
 
+     public function Lister_briefs_formateurs($id, $idb){
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
+
+            ->innerJoin('p.briefMaPromos', 'bp')
+            ->innerJoin('bp.briefs', 'b')
+            ->andWhere('b.id = :idb') 
+            ->setParameter('idb', $idb)
+
+            /* ->innerJoin('bp.briefs', 'b')
+            ->andWhere('b.id = :idbr')
+            ->setParameter('idbr', $idb) */
+ 
+            ->getQuery()
+            ->getResult()
+     ;
+    } 
+
+
     // /**
     //  * @return Promo[] Returns an array of Promo objects
     //  */

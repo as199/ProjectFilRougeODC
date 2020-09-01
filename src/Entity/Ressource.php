@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\RessourceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RessourceRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RessourceRepository::class)
+ * @ApiResource()
  */
 class Ressource
 {
@@ -14,16 +17,19 @@ class Ressource
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"getbpf:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getbpf:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getbpf:read"})
      */
     private $type;
 
@@ -34,6 +40,7 @@ class Ressource
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"getbpf:read"})
      */
     private $url;
 

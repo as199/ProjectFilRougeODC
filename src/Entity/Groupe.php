@@ -68,20 +68,20 @@ class Groupe
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *@Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read","admin_promo_attente:read"})
+     *@Groups({"getbpa:read","admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read","admin_promo_attente:read"})
 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-    *@Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
+    *@Groups({"postlivrables:read","getbpa:read","admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
 
      */
     private $nomGroupe;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes")
+     * @ORM\ManyToMany(targetEntity=Apprenant::class, inversedBy="groupes", cascade={"persist"})
     *@Groups({"admin_promo:read","admin_groupe:read","admin_groupe_apprenant:read","admin_promo_apprenant:read","admin_promo_principal:read"})
 
      */
@@ -95,7 +95,7 @@ class Groupe
 
     /**
      * @ORM\ManyToOne(targetEntity=Promo::class, inversedBy="groupes",cascade={"persist"})
-     * @Groups({"admin_groupe:read","admin_promo_attente:read"})
+     * @Groups({"getbpa:read","admin_groupe:read","admin_promo_attente:read"})
      */
     private $promos;
 
@@ -106,7 +106,7 @@ class Groupe
     private $statut;
 
     /**
-     * @ORM\OneToMany(targetEntity=EtatBriefGroupe::class, mappedBy="groupes")
+     * @ORM\OneToMany(targetEntity=EtatBriefGroupe::class, mappedBy="groupes", cascade={"persist"})
      */
     private $etatBriefGroupes;
 
